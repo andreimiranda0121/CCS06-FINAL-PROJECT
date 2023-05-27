@@ -28,7 +28,7 @@ try{
         if($result->getRole() === 'admin'){
             header("Location: admin_panel.php");
         }else{
-            header("Location: user_panel.php");
+            header("Location: productpage.php");
         }
 		
 	}

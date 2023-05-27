@@ -105,6 +105,7 @@ $result = Product::list();
                 </div>
             </div>
         </div>
+        
         <?php endforeach?>
         <!-- Add more product cards as needed -->
         

@@ -5,19 +5,9 @@ session_start();
 if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     header("Location: login.php");
     
+}else if($_SESSION['users']['role'] == 'admin'){
+    header("Location: admin_panel.php");
+}else{
+    header('Location: user_panel.php');
 }
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Panel</title>
-</head>
-<body>
-    <h1>Welcome to the Admin Panel</h1>
-    <ul>
-        <li><a href="products.php">Manage Products</a></li>
-        <li><a href="logout.php">Logout</a></li>
-    </ul>
-</body>
-</html>

@@ -71,6 +71,68 @@ class Product
             error_log($e->getMessage());
         }
     }
+
+    public static function edit($prod_id,$prod_name,$price){
+        global $conn;
+
+        try {
+			$sql = "
+                UPDATE products
+                SET
+                    prod_name = :prod_name,
+                    price = :price
+                WHERE prod_id = :prod_id
+            ";
+			$statement = $conn->prepare($sql);
+			return $statement->execute([
+				'prod_name' => $prod_name,
+				'price' => $price,
+				'prod_id' => $prod_id
+			]);
+		} catch (PDOException $e) {
+			error_log($e->getMessage());
+		}
+
+		return false;
+    }
+
+    public static function getById($prod_id){
+        global $conn;
+        try{
+            $sql = "
+                SELECT * FROM products
+                WHERE prod_id=:prod_id
+                LIMIT 1
+            ";
+            $statement = $conn->prepare($sql);
+            $statement->execute([
+                'prod_id' => $prod_id
+            ]);
+            $result = $statement->fetchObject('App\Product');
+
+            return $result;
+        }catch (PDOException $e){
+            error_log($e->getMessage());
+        }
+
+        return null;
+    }
+
+    public static function delProd($prod_id){
+        global $conn;
+        try{
+            $sql = "
+                DELETE FROM products
+                WHERE prod_id=:prod_id
+            ";
+            $statement = $conn->prepare($sql);
+            return $statement->execute([
+                'prod_id' => $prod_id
+            ]);
+        }catch (PDOException $e){
+            error_log($e->getMessage());
+        }
+    }
 }
 
 ?>
