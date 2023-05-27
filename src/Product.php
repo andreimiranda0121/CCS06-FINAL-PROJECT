@@ -33,6 +33,13 @@ class Product
             $sql="
                 SELECT * FROM products;
             ";
+
+            $statement = $conn->query($sql);
+            $products =[];
+            while($row = $statement->fetchObject('App\Product')){
+                array_push($products,$row);
+            }
+            return $products;
         }catch(PDOException $e){
             error_log($e->getMessage());
         }

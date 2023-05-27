@@ -13,7 +13,7 @@
     <title>Add Product</title>
 </head>
 <body>
-    <form action="save_product.php" method="POST">
+    <form action="save_product.php" method="POST" enctype="multipart/form-data">
         <div>
             <label>Product Name: </label>
             <input type="text" name="prod_name"><br>
@@ -26,7 +26,7 @@
         
         <div>
             <label>Image: </label>
-            <input type="text" name="image"><br>
+            <input type="file" accept="image/png, image/jpeg, image/jpg" name="image"><br>
         </div>
 
         <input type="submit" value="submit">

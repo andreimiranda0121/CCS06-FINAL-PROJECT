@@ -7,6 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <form action=""></form>
+    <form action="save_registration.php">
+        <div>
+            <label></label>
+        </div>
+    </form>
 </body>
 </html>

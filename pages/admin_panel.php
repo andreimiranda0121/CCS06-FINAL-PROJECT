@@ -91,23 +91,24 @@ $result = Product::list();
 <body>
     <h1>Product Management</h1>
     <a href="logout.php">LOGOUT</a>
-    <div class="product-container">
+
+        <?php foreach($result as $res): ?>
+        <div class="product-container">
         <div class="product-card">
-            <img src="../images/blackshirt.jpg" alt="Product 1" class="product-image">
+            <img src='../images/<?php echo $res->getImage();?>' alt="Product 1" class="product-image">
             <div class="product-details">
-                <div class="product-name">Product 1</div>
-                <div class="product-price">$19.99</div>
+                <div class="product-name"><?=$res->getProdName(); ?></div>
+                <div class="product-price"><?=$res->getPrice();?></div>
                 <div class="product-actions">
-                    <a href="edit_product.php?id=1" class="button edit">Edit</a>
-                    <a href="delete_product.php?id=1" class="button delete">Delete</a>
+                    <a href="edit_product.php?id=<?php echo $res->getProdID();?>" class="button edit">Edit</a>
+                    <a href="delete_product.php?id=<?php echo $res->getProdID();?>" class="button delete">Delete</a>
                 </div>
             </div>
         </div>
-
-
+        <?php endforeach?>
         <!-- Add more product cards as needed -->
+        
     </div>
-
     <a href="add_product.php" class="button add">Add Product</a>
 </body>
 </html>
