@@ -74,9 +74,10 @@ class Product
         global $conn;
 
         try{
+            $date = date('Y-m-d H:i:s');
             $sql="
-                INSERT INTO products (product_name,price,image_path,product_description,product_quantity,size,color,gender)
-                VALUES('$product_name','$price','$image_path','$product_description','$product_quantity','$size','$color','$gender')
+                INSERT INTO products (product_name,price,image_path,product_description,product_quantity,size,color,gender,date)
+                VALUES('$product_name','$price','$image_path','$product_description','$product_quantity','$size','$color','$gender','$date')
             ";
             $conn->exec($sql);
 

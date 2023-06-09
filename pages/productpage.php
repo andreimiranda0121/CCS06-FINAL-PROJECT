@@ -96,7 +96,7 @@ $product = Product::list();
             <h2><?php echo $prod->getProdName();?></h2>
             <img class ="prod-image" src="../images/<?php echo $prod->getImage();?>">
             <p>Price: Php <?php echo $prod->getPrice();?></p>
-    
+            
             <!-- "Add to Cart" button -->
                 <a href="save_to_cart.php?id=<?php echo $prod->getProdID();?>" class="button">Add to Cart</a><br>
             

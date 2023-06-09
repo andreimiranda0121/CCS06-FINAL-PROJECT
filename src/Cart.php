@@ -3,6 +3,7 @@
 namespace App;
 
 use PDOException;
+use PDO;
 
 class Cart{
     protected $product_id;
@@ -14,7 +15,7 @@ class Cart{
     protected $size;
     protected $color;
     protected $image_path;
-
+    protected $cart_quantity;
 
     public function getProdID(){
         return $this->product_id;
@@ -52,6 +53,10 @@ class Cart{
         return $this->image_path;
     }
 
+    public function getQuantity(){
+        return $this->cart_quantity;
+    }
+
     public static function list(){
         global $conn;
         $user_id = $_SESSION['user']['id'];
@@ -63,6 +68,7 @@ class Cart{
                 p.size,
                 p.color,
                 p.image_path,
+                c.cart_quantity,
                 c.cart_id
                 FROM products AS p
                 LEFT JOIN cart as c
@@ -87,24 +93,53 @@ class Cart{
         }
     }
 
-    public static function add($product_id, $user_id)
-    {
+    public static function add($product_id, $user_id){
         global $conn;
         try {
+            // Check if the item already exists in the cart for the user
             $sql = "
-                INSERT INTO cart (user_id, product_id)
-                VALUES (:user_id, :product_id)
+                SELECT cart_id, cart_quantity
+                FROM cart
+                WHERE user_id = :user_id AND product_id = :product_id
             ";
             $statement = $conn->prepare($sql);
             $statement->execute([
                 'user_id' => $user_id,
                 'product_id' => $product_id
             ]);
-            return $conn->lastInsertId();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+            if ($result) {
+                // If the item exists, update the quantity
+                $sql = "
+                    UPDATE cart
+                    SET cart_quantity = cart_quantity + 1
+                    WHERE user_id = :user_id AND product_id = :product_id
+                ";
+                $statement = $conn->prepare($sql);
+                $statement->execute([
+                    'user_id' => $user_id,
+                    'product_id' => $product_id
+                ]);
+                return $result['cart_id'];
+            } else {
+                // If the item doesn't exist, insert a new record in the cart table
+                $sql = "
+                    INSERT INTO cart (user_id, product_id, cart_quantity)
+                    VALUES (:user_id, :product_id, 1)
+                ";
+                $statement = $conn->prepare($sql);
+                $statement->execute([
+                    'user_id' => $user_id,
+                    'product_id' => $product_id
+                ]);
+                return $conn->lastInsertId();
+            }
         } catch (PDOException $e) {
             error_log($e->getMessage());
         }
     }
+
 
     public static function delByID($cart_id){
         global $conn;
