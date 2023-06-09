@@ -1,11 +1,3 @@
-<?php
-
-require "../config.php";
-
-// If the session variable is already set, automatically redirect the user to index page
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +9,6 @@ require "../config.php";
     <title>Mal De Wear-Login</title>
 </head>
 <body class="bg">
-    <div>
     <div class="dashboard">
         <div class="dashboard-title">
             <a href="productpage.php">Mal De Wear</a>
@@ -43,7 +34,7 @@ require "../config.php";
                 <i class="bx bx-user"></i>
             </div>
             <div class="input-field">
-                <input name="password" type="password" class="input" placeholder="Password" required>
+                <input type="password" name="password" class="input" placeholder="Password" required>
                 <i class="bx bx-lock-alt"></i>
             </div>
             <div class="input-field">
@@ -51,7 +42,7 @@ require "../config.php";
             </div>
         </form>
         <div class="register">
-            <p>Don't have an account? <a href="">Sign up!</a></p>
+            <p>Don't have an account? <a href="register.php">Sign up!</a></p>
         </div>
     </div>
 
@@ -63,11 +54,21 @@ require "../config.php";
                 <li>Best Sellers</li>
                 <li>Shop by Collection</li>
             </ul>
+            <h3>Women</h3>
+            <ul>
+                <li>New Arrivals</li>
+                <li>Best Sellers</li>
+                <li>Shop by Collection</li>
+            </ul>
+            <h3>Kids</h3>
+            <ul>
+                <li>New Arrivals</li>
+                <li>Best Sellers</li>
+                <li>Shop by Collection</li>
+            </ul>
         </div>
     </div>
 
-    </div>
-    
     <script>
         const menuIcon = document.querySelector('.menu-icon');
         const sidebar = document.querySelector('.sidebar');
@@ -85,7 +86,15 @@ require "../config.php";
                 container.classList.remove('container-active');
             }
         });
+        const navLinks = document.querySelectorAll('.nav-links a');
 
+        navLinks.forEach((link) => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const targetSection = document.querySelector(link.getAttribute('href'));
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+        });
+        });
 
     </script>
 </body>

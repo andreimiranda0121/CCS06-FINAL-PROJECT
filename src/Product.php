@@ -5,17 +5,22 @@ use PDOException;
 
 class Product
 {
-    protected $prod_id;
-    protected $prod_name;
+    protected $product_id;
+    protected $product_name;
     protected $price;
-    protected $image;
+    protected $image_path;
+    protected $product_description;
+    protected $size;
+    protected $color;
+    protected $product_quantity;
+    protected $gender;
 
     public function getProdID(){
-        return $this->prod_id;
+        return $this->product_id;
     }
 
     public function getProdName(){
-        return $this->prod_name;
+        return $this->product_name;
     }
 
     public function getPrice(){
@@ -23,7 +28,27 @@ class Product
     }
 
     public function getImage(){
-        return $this->image;
+        return $this->image_path;
+    }
+
+    public function getSize(){
+        return $this->size;
+    }
+
+    public function getColor(){
+        return $this->color;
+    }
+
+    public function getQuantity(){
+        return $this->product_quantity;
+    }
+
+    public function getDescription(){
+        return $this->product_description;
+    }
+
+    public function getGender(){
+        return $this->gender;
     }
 
     public static function list(){
@@ -45,23 +70,13 @@ class Product
         }
     }
 
-    public static function delete(){
-        global $conn;
-
-        try{
-            $sql="";
-        }catch(PDOException $e){
-            error_log($e->getMessage());
-        }
-    }
-
-    public static function add($prod_name,$price,$image){
+    public static function add($product_name,$price,$image_path,$product_description,$product_quantity,$size,$color,$gender){
         global $conn;
 
         try{
             $sql="
-                INSERT INTO products (prod_name,price,image)
-                VALUES('$prod_name','$price','$image')
+                INSERT INTO products (product_name,price,image_path,product_description,product_quantity,size,color,gender)
+                VALUES('$product_name','$price','$image_path','$product_description','$product_quantity','$size','$color','$gender')
             ";
             $conn->exec($sql);
 
@@ -72,22 +87,32 @@ class Product
         }
     }
 
-    public static function edit($prod_id,$prod_name,$price){
+    public static function edit($product_id,$product_name,$price,$product_description,$product_quantity,$size,$color,$gender){
         global $conn;
 
         try {
 			$sql = "
                 UPDATE products
                 SET
-                    prod_name = :prod_name,
-                    price = :price
-                WHERE prod_id = :prod_id
+                    product_name =:product_name,
+                    price= :price,
+                    product_description =:product_description,
+                    product_quantity =:product_quantity,
+                    size =:size,
+                    color =:color,
+                    gender =:gender
+                WHERE product_id = :product_id
             ";
 			$statement = $conn->prepare($sql);
 			return $statement->execute([
-				'prod_name' => $prod_name,
+				'product_name' => $product_name,
 				'price' => $price,
-				'prod_id' => $prod_id
+                'product_description' => $product_description,
+                'product_quantity' => $product_quantity,
+                'size' => $size,
+                'color' => $color,
+                'gender' => $gender,
+				'product_id' => $product_id
 			]);
 		} catch (PDOException $e) {
 			error_log($e->getMessage());
@@ -96,17 +121,17 @@ class Product
 		return false;
     }
 
-    public static function getById($prod_id){
+    public static function getById($product_id){
         global $conn;
         try{
             $sql = "
                 SELECT * FROM products
-                WHERE prod_id=:prod_id
+                WHERE product_id=:product_id
                 LIMIT 1
             ";
             $statement = $conn->prepare($sql);
             $statement->execute([
-                'prod_id' => $prod_id
+                'product_id' => $product_id
             ]);
             $result = $statement->fetchObject('App\Product');
 
@@ -118,16 +143,16 @@ class Product
         return null;
     }
 
-    public static function delProd($prod_id){
+    public static function delProd($product_id){
         global $conn;
         try{
             $sql = "
                 DELETE FROM products
-                WHERE prod_id=:prod_id
+                WHERE product_id=:product_id
             ";
             $statement = $conn->prepare($sql);
             return $statement->execute([
-                'prod_id' => $prod_id
+                'product_id' => $product_id
             ]);
         }catch (PDOException $e){
             error_log($e->getMessage());

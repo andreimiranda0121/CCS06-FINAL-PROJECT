@@ -2,16 +2,17 @@
 
 require "../config.php";
 
-use App\Product;
+use App\Cart;
 
 // Remove Student record, and automatically redirect to index
+session_start();
 
 try {
-	$product_id = $_GET['id'];
-	$result = Product::delProd($product_id);
+	$cart_id = $_GET['id'];
+	$result = Cart::delByID($cart_id);
 
 	if ($result) {
-		header('Location: admin_panel.php');
+		header('Location: cart.php');
 	}
 
 } catch (PDOException $e) {

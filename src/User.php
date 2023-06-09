@@ -8,8 +8,11 @@ class User
 {
     protected $username;
     protected $password;
-    protected $role;
+    protected $roles;
     protected $user_id;
+    protected $email;
+    protected $shipping_address;
+    protected $billing_address;
 
     public function getUsername()
     {
@@ -27,7 +30,19 @@ class User
 
     public function getRole()
     {
-        return $this->role;
+        return $this->roles;
+    }
+
+    public function getEmail(){
+        return $this->email;
+    }
+
+    public function getShipping(){
+        return $this->shipping_address;
+    }
+
+    public function getBilling(){
+        return $this->billing_address;
     }
     
     public static function attemptLogin($username, $password)
@@ -71,6 +86,31 @@ class User
         }
         return false;
     }
+
+    public static function getById($user_id){
+        global $conn;
+        try{
+            $sql = "
+                SELECT * FROM users
+                WHERE user_id =:user_id
+                LIMIT 1
+            ";
+            $statement = $conn->prepare($sql);
+            $statement->execute([
+                'user_id' => $user_id
+            ]);
+            $result = $statement->fetchObject('App\User');
+
+            return $result;
+        }catch (PDOException $e){
+            error_log($e->getMessage());
+        }
+        return null;
+    }
+
+
 }
+
+
 
 ?>

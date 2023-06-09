@@ -22,7 +22,7 @@ try{
             'id' => $result->getID(),
             'username'=> $result->getUsername(),
             'password'=> $result->getPassword(),
-            'role'=> $result->getRole()
+            'roles  '=> $result->getRole()
         ];
 
         if($result->getRole() === 'admin'){

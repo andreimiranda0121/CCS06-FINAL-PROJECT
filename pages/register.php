@@ -7,9 +7,21 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="save_registration.php">
+    <form action="save_registration.php" method="POST">
         <div>
-            <label></label>
+            <label>Username: </label>
+            <input type="text" name="username" placeholder="Enter your username" required><br>
+        </div>
+        <div>
+            <label>Email: </label>
+            <input type="email" name="email" placeholder="Enter yor email" required>
+        </div>
+        <div>
+            <label>Password: </label>
+            <input type="password" name="password" placeholder="Enter your password" required>
+        </div>
+        <div>
+            <input type="submit" class="submit" value="Signup">
         </div>
     </form>
 </body>

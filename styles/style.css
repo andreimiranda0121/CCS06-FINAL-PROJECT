@@ -8,9 +8,17 @@
     background-position: center;    
     overflow: hidden;
 }
-.background{
-    background-image: none;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-image: url('images/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
 }
+
 .container {
     display: flex;
     flex-direction: column;
@@ -77,7 +85,7 @@ i {
     color: rgb(3, 3, 3);
 }
 
-.submit, .button {
+.submit {
     width: 123px;
     height: 35px;
     background: #E0E0E0;
@@ -87,7 +95,7 @@ i {
     transition: background-color 0.3s;
 }
 
-.submit:hover , .button:hover {
+.submit:hover {
     background-color: #000;
     color: #fff;
     box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.7);
@@ -130,7 +138,7 @@ i {
     font-size: 18px;
     font-weight: bold;
     text-align: center;
-    flex-grow: 1; /* Occupy remaining space */
+    flex-grow: 0; /* Occupy remaining space */
     display: flex; /* Ensure flex behavior */
     align-items: center; /* Center vertically */
     justify-content: center; /* Center horizontally */

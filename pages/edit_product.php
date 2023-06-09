@@ -31,11 +31,36 @@ $product = Product::getById($prod_id);
                 <label>Product Name: </label>
                 <input type="text" class="box" value="<?php echo $product->getProdName();?>" name="prod_name"  required><br>
             </div>
-        
+        <div>
+                <label>Description:</label>
+                <input type="text" value="<?php echo $product->getDescription();?>" name="description" class="box" required><br>
+            </div>
+
             <div>
                 <label>Price: </label>
-                <input type="text" class="box" name="price" value="<?php echo $product->getPrice();?>" required><br>
-            </div>   
+                <input type="text" value="<?php echo $product->getPrice();?>" name="price" class="box" required><br>
+            </div>
+            
+            <div>
+                <label>Quantity:</label>
+                <input type="text" value="<?php echo $product->getQuantity();?>" name="quantity" class="box" required><br>
+            </div>
+
+            <div>
+                <label>Size:</label>
+                <input type="text" value="<?php echo $product->getSize();?>" name="size" class="box" required><br>
+            </div>
+
+            <div>
+                <label>Gender: </label>
+                <input type="radio" name="gender" value="Male" <?php echo ($product->getGender() === 'Male') ? 'checked' : ''; ?> >Male
+                <input type="radio" name="gender" value="Female" <?php echo ($product->getGender() === 'Female') ? 'checked' : ''; ?> >Female
+            </div>
+
+            <div>
+                <label>Color:</label>
+                <input type="text" value="<?php echo $product->getColor();?>" name="color" class="box" required><br>
+            </div>
             <input type="submit" value="Save" class="btn" >
         </form>
     </div>

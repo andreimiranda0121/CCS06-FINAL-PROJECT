@@ -1,12 +1,18 @@
 <?php
 
 require "../config.php";
-use App\Product;
 
+use App\Cart;
+session_start();
 
-$product = Product::list();
+if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
+    // Redirect the user to the login page or display an error message
+    header("Location: login.php"); // Redirect to the login page
+    exit; // Stop executing the rest of the code
+}else{
+    $cart = Cart::list();
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,9 +22,8 @@ $product = Product::list();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.9/css/boxicons.min.css">
     <link rel="stylesheet" href="../styles/style.css">
-    <title>Mal De Wear</title>
+    <title>My Cart</title>
     <style>
-        /* Basic styles for the container */
         .product-container {
             display: flex;
             flex-direction: column;
@@ -30,9 +35,7 @@ $product = Product::list();
             border: 1px solid #ccc;
             background-color: #f5f5f5;
         }
-        a {
-            text-decoration:none;
-        }
+
         /* Styles for the buttons */
         .button {
             display: inline-block;
@@ -47,9 +50,27 @@ $product = Product::list();
             border-radius: 4px;
             cursor: pointer;
         }
+        .button-remove{
+            display: inline-block;
+            padding: 10px 20px;
+            margin-right: 10px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: red;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
         .button:hover {
             background-color: #0056b3;
         }
+
+        .button-remove:hover{
+            background-color: darkred;
+        }
+
         .prod-image{
             min-width: 100px;
             max-width: 100px;
@@ -83,50 +104,27 @@ $product = Product::list();
             <div class="sidebar-content">
                 <h3>Men</h3>
                 <ul>
-                    <li><a href='cart.php'>New Arrivals</a></li>
+                    <li>New Arrivals</li>
                     <li>Best Sellers</li>
                     <li>Shop by Collection</li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="product-container-wrapper">
-        <?php foreach($product as $prod):?>
-        <div class="product-container">
-            <h2><?php echo $prod->getProdName();?></h2>
-            <img class ="prod-image" src="../images/<?php echo $prod->getImage();?>">
-            <p>Price: Php <?php echo $prod->getPrice();?></p>
-    
-            <!-- "Add to Cart" button -->
-                <a href="save_to_cart.php?id=<?php echo $prod->getProdID();?>" class="button">Add to Cart</a><br>
-            
-            <!-- "Buy Now" button -->
-                <a class="button" >Buy Now</a>
-        
-        </div>
-        <?php endforeach?>
+
+     <div class="product-container-wrapper">
+        <?php foreach ($cart as $item) : ?>
+            <div class="product-container">
+                <h2><?php echo $item->getProdName(); ?></h2>
+                <img class="prod-image" src="../images/<?php echo $item->getImage(); ?>">
+                <p>Price: Php <?php echo $item->getPrice(); ?></p>
+
+                <!-- "Buy Now" button -->
+                <a class="button">Buy Now</a><br>
+                <a class="button-remove" href="delete_cart.php?id=<?php echo $item->getCartID(); ?>">Remove</a>
+            </div>
+        <?php endforeach ?>
     </div>
 
-
 </body>
-<script>
-    const menuIcon = document.querySelector('.menu-icon');
-        const sidebar = document.querySelector('.sidebar');
-        const container = document.querySelector('.container');
-        const dashboard = document.querySelector('.dashboard');
-
-        menuIcon.addEventListener('click', () => {
-            sidebar.classList.toggle('sidebar-active');
-            container.classList.toggle('container-active');
-        });
-
-        container.addEventListener('click', (event) => {
-            if (event.target === container || event.target === dashboard) {
-                sidebar.classList.remove('sidebar-active');
-                container.classList.remove('container-active');
-            }
-        });
-
-</script>
-
 </html>

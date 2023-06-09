@@ -97,8 +97,34 @@ $result = Product::list();
         <div class="product-card">
             <img src='../images/<?php echo $res->getImage();?>' alt="Product 1" class="product-image">
             <div class="product-details">
-                <div class="product-name"><?=$res->getProdName(); ?></div>
-                <div class="product-price"><?=$res->getPrice();?></div>
+                <div class="product-name">
+                    <label>Name: </label>
+                    <?=$res->getProdName(); ?>
+                </div>
+                <div class="product-price">
+                    <label>Price: Php</label>
+                    <?=$res->getPrice();?>
+                </div>
+                <div>
+                    <label>Description: </label>
+                    <?php echo $res->getDescription();?>
+                </div>
+                <div>
+                    <label>Quantity: </label>
+                    <?php echo $res->getQuantity();?>
+                </div>
+                <div>
+                    <label>Size: </label>
+                    <?php echo $res->getSize();?>
+                </div>
+                <div>
+                    <label>Color: </label>
+                    <?php echo $res->getColor();?>
+                </div>
+                <div>
+                    <label>Gender: </label>
+                    <?php echo $res->getGender();?>
+                </div>
                 <div class="product-actions">
                     <a href="edit_product.php?id=<?php echo $res->getProdID();?>" class="button edit">Edit</a>
                     <a href="delete_product.php?id=<?php echo $res->getProdID();?>" class="button delete">Delete</a>
