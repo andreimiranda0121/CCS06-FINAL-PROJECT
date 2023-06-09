@@ -19,42 +19,6 @@ $product = Product::list();
     <title>Mal De Wear</title>
     <style>
         /* Basic styles for the container */
-        .product-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 100px;
-            margin-right: 30px;
-            width: 300px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #f5f5f5;
-        }
-        a {
-            text-decoration:none;
-        }
-        /* Styles for the buttons */
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            margin-right: 10px;
-            font-size: 16px;
-            text-align: center;
-            text-decoration: none;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-        .prod-image{
-            min-width: 100px;
-            max-width: 100px;
-        }
-
         .product-container-wrapper {
             display: flex;
             flex-wrap: wrap;
@@ -62,7 +26,56 @@ $product = Product::list();
             margin: 0 auto;
             max-width: 1200px;
             padding: 20px;
+            margin-top: 80px; /* Added margin-top to create space for the navigation bar */
         }
+
+        .product-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            width: 250px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .prod-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #ff5722;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #f44336;
+        }
+        
+        /* Styles for the navigation bar */
+        
+
+        
+
+        
     </style>
 </head>
 <body>
@@ -91,42 +104,39 @@ $product = Product::list();
         </div>
     </div>
     <div class="product-container-wrapper">
-        <?php foreach($product as $prod):?>
+    <?php foreach($product as $prod): ?>
         <div class="product-container">
-            <h2><?php echo $prod->getProdName();?></h2>
-            <img class ="prod-image" src="../images/<?php echo $prod->getImage();?>">
-            <p>Price: Php <?php echo $prod->getPrice();?></p>
+            <h2><?php echo $prod->getProdName(); ?></h2>
+            <img class="prod-image" src="../images/<?php echo $prod->getImage(); ?>">
+            <p class="price">Price: Php <?php echo $prod->getPrice(); ?></p>
             
             <!-- "Add to Cart" button -->
-                <a href="save_to_cart.php?id=<?php echo $prod->getProdID();?>" class="button">Add to Cart</a><br>
+            <a href="save_to_cart.php?id=<?php echo $prod->getProdID(); ?>" class="button">Add to Cart</a><br>
             
             <!-- "Buy Now" button -->
-                <a class="button" >Buy Now</a>
-        
+            <a class="button">Buy Now</a>
         </div>
-        <?php endforeach?>
-    </div>
+    <?php endforeach; ?>
+</div>
 
-
-</body>
 <script>
     const menuIcon = document.querySelector('.menu-icon');
-        const sidebar = document.querySelector('.sidebar');
-        const container = document.querySelector('.container');
-        const dashboard = document.querySelector('.dashboard');
+    const sidebar = document.querySelector('.sidebar');
+    const container = document.querySelector('.container');
+    const dashboard = document.querySelector('.dashboard');
 
-        menuIcon.addEventListener('click', () => {
-            sidebar.classList.toggle('sidebar-active');
-            container.classList.toggle('container-active');
-        });
+    menuIcon.addEventListener('click', () => {
+        sidebar.classList.toggle('sidebar-active');
+        container.classList.toggle('container-active');
+    });
 
-        container.addEventListener('click', (event) => {
-            if (event.target === container || event.target === dashboard) {
-                sidebar.classList.remove('sidebar-active');
-                container.classList.remove('container-active');
-            }
-        });
-
+    container.addEventListener('click', (event) => {
+        if (event.target === container || event.target === dashboard) {
+            sidebar.classList.remove('sidebar-active');
+            container.classList.remove('container-active');
+        }
+    });
 </script>
 
+</body>
 </html>
