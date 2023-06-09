@@ -97,7 +97,7 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     <div>
         <div class="dashboard">
             <div class="dashboard-title">
-                <a href="productpage.php">Mal De Wear</a>
+                <a href="home.php">Mal De Wear</a>
             </div>
             <nav class="nav-links">
                 <a href="cart.php"><i class="bx bx-cart"></i></a>
