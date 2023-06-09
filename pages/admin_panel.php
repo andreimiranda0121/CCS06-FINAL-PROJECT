@@ -3,19 +3,14 @@
 require '../config.php';
 use App\Product;
 
-
 session_start();
 if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
-    // Redirect the user to the login page or display an error message
-    header("Location: login.php"); // Redirect to the login page
-    exit; // Stop executing the rest of the code
-
-
+    header("Location: login.php");
+    exit;
 }
 
 $result = Product::list();
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -23,29 +18,26 @@ $result = Product::list();
     <title>Product Management</title>
     <style>
         body {
-           font-family: Arial, sans-serif;
+            font-family: Arial, sans-serif;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            display: flex;
-            flex-direction: row;
-            right: 100px;
-            top: 80px;
+            padding: 40px;
+            position: absolute;
+            top: 70px;
+            left: 30px;
         }
 
         h1 {
-            margin-top: 0;
-            text-align: center;
+            margin-top: 0px;
+            right: 0px;
+            left: 40px;
+            position: absolute;        
         }
 
         .logout-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
             padding: 6px 12px;
             font-size: 14px;
             font-weight: bold;
@@ -54,13 +46,9 @@ $result = Product::list();
             border: none;
             border-radius: 4px;
             cursor: pointer;
-        }
-
-        .product-container {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: flex-start;
+            right: 40px;
+            top: 25px;
+            position: absolute;
         }
 
         .product-container {
@@ -125,57 +113,71 @@ $result = Product::list();
         .button.add {
             background-color: #4CAF50;
             color: #fff;
+            left: 50px;
+            top: 20px;
+            position: absolute;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .titlepage {
+            right: 90px;
         }
     </style>
 </head>
 <body>
-    <h1>Product Management</h1>
-        <a href="logout.php" class="logout-button">Logout</a>
-        <div class="container">
-        <?php foreach($result as $res): ?>
+    <div class="titlepage"><h1>Product Management</h1></div>
+    <a href="logout.php" class="logout-button">Logout</a>
+
+    <div class="container">
+        <div class="button-container">
+            <a href="add_product.php" class="button add">Add Product</a>
+        </div>
+
         <div class="product-container">
-        <div class="product-card">
-            <img src='../images/<?php echo $res->getImage();?>' alt="Product 1" class="product-image">
-            <div class="product-details">
-                <div class="product-name">
-                    <label>Name: </label>
-                    <?=$res->getProdName(); ?>
-                </div>
-                <div class="product-price">
-                    <label>Price: Php</label>
-                    <?=$res->getPrice();?>
-                </div>
-                <div>
-                    <label>Description: </label>
-                    <?php echo $res->getDescription();?>
-                </div>
-                <div>
-                    <label>Quantity: </label>
-                    <?php echo $res->getQuantity();?>
-                </div>
-                <div>
-                    <label>Size: </label>
-                    <?php echo $res->getSize();?>
-                </div>
-                <div>
-                    <label>Color: </label>
-                    <?php echo $res->getColor();?>
-                </div>
-                <div>
-                    <label>Gender: </label>
-                    <?php echo $res->getGender();?>
-                </div>
-                <div class="product-actions">
-                    <a href="edit_product.php?id=<?php echo $res->getProdID();?>" class="button edit">Edit</a>
-                    <a href="delete_product.php?id=<?php echo $res->getProdID();?>" class="button delete">Delete</a>
+            <?php foreach($result as $res): ?>
+            <div class="product-card">
+                <img src='../images/<?php echo $res->getImage();?>' alt="Product 1" class="product-image">
+                <div class="product-details">
+                    <div class="product-name">
+                        <label>Name: </label>
+                        <?=$res->getProdName(); ?>
+                    </div>
+                    <div class="product-price">
+                        <label>Price: Php</label>
+                        <?=$res->getPrice();?>
+                    </div>
+                    <div>
+                        <label>Description: </label>
+                        <?php echo $res->getDescription();?>
+                    </div>
+                    <div>
+                        <label>Quantity: </label>
+                        <?php echo $res->getQuantity();?>
+                    </div>
+                    <div>
+                        <label>Size: </label>
+                        <?php echo $res->getSize();?>
+                    </div>
+                    <div>
+                        <label>Color: </label>
+                        <?php echo $res->getColor();?>
+                    </div>
+                    <div>
+                        <label>Gender: </label>
+                        <?php echo $res->getGender();?>
+                    </div>
+                    <div class="product-actions">
+                        <a href="edit_product.php?id=<?php echo $res->getProdID();?>" class="button edit">Edit</a>
+                        <a href="delete_product.php?id=<?php echo $res->getProdID();?>" class="button delete">Delete</a>
+                    </div>
                 </div>
             </div>
+            <?php endforeach?>
         </div>
-        </div>
-        <?php endforeach?>
-        <!-- Add more product cards as needed -->
     </div>
-    <a href="add_product.php" class="button add">Add Product</a>
-
 </body>
 </html>
