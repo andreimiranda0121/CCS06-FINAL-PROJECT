@@ -3,19 +3,14 @@
 require '../config.php';
 use App\Product;
 
-
 session_start();
 if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
-    // Redirect the user to the login page or display an error message
-    header("Location: login.php"); // Redirect to the login page
-    exit; // Stop executing the rest of the code
-
-
+    header("Location: login.php");
+    exit;
 }
 
 $result = Product::list();
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -29,12 +24,17 @@ $result = Product::list();
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px;
+            position: absolute;
+            top: 70px;
+            left: 30px;
         }
 
         h1 {
-            margin-top: 0;
-            text-align: center;
+            margin-top: 0px;
+            right: 0px;
+            left: 40px;
+            position: absolute;        
         }
 
         .logout-button {
@@ -46,6 +46,9 @@ $result = Product::list();
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            right: 40px;
+            top: 25px;
+            position: absolute;
         }
 
         .product-container {
@@ -110,20 +113,28 @@ $result = Product::list();
         .button.add {
             background-color: #4CAF50;
             color: #fff;
+            left: 50px;
+            top: 20px;
+            position: absolute;
         }
 
         .button-container {
             display: flex;
             justify-content: space-between;
         }
+
+        .titlepage {
+            right: 90px;
+        }
     </style>
 </head>
 <body>
+    <div class="titlepage"><h1>Product Management</h1></div>
+    <a href="logout.php" class="logout-button">Logout</a>
+
     <div class="container">
-        <h1>Product Management</h1>
         <div class="button-container">
             <a href="add_product.php" class="button add">Add Product</a>
-            <a href="logout.php" class="logout-button">Logout</a>
         </div>
 
         <div class="product-container">
@@ -170,4 +181,3 @@ $result = Product::list();
     </div>
 </body>
 </html>
-
