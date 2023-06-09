@@ -118,7 +118,11 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
                 <h2><?php echo $item->getProdName(); ?></h2>
                 <img class="prod-image" src="../images/<?php echo $item->getImage(); ?>">
                 <p>Price: Php <?php echo $item->getPrice(); ?></p>
-
+                <div>
+                    <label>Quantity: </label>
+                    <input type="text" value="<?php echo $item->getQuantity();?>">
+                </div>
+                
                 <!-- "Buy Now" button -->
                 <a class="button">Buy Now</a><br>
                 <a class="button-remove" href="delete_cart.php?id=<?php echo $item->getCartID(); ?>">Remove</a>
