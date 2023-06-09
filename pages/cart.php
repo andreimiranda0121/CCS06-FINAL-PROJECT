@@ -9,7 +9,14 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     // Redirect the user to the login page or display an error message
     header("Location: login.php"); // Redirect to the login page
     exit; // Stop executing the rest of the code
-}else{
+} else {
+    if (isset($_POST['quantity_plus'])) {
+    $cart_id = $_POST['cart_id'];
+    $cart = Cart::updateQuantity($cart_id, $_POST['quantity_plus']);
+} elseif (isset($_POST['quantity_minus'])) {
+    $cart_id = $_POST['cart_id'];
+    $cart = Cart::updateQuantity($cart_id, $_POST['quantity_minus']);
+}
     $cart = Cart::list();
 }
 ?>
@@ -117,14 +124,18 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
             <div class="product-container">
                 <h2><?php echo $item->getProdName(); ?></h2>
                 <img class="prod-image" src="../images/<?php echo $item->getImage(); ?>">
-                <p>Price: Php <?php echo $item->getPrice(); ?></p>
-                <div>
-                    <label>Quantity: </label>
-                    <input type="text" value="<?php echo $item->getQuantity();?>">
-                </div>
-                
+                <p>Price: Php <?php echo $item->getPrice()*$item->getQuantity(); ?></p>
+                <form method="post">
+                    <div>
+                        <label>Quantity: </label>
+                        <button type="submit" name="quantity_plus" value="<?php echo $item->getQuantity() + 1; ?>" <?php echo ($item->getQuantity() == $item->getProdQuantity()) ? 'disabled' : ''; ?>>+</button>
+                        <span><?php echo $item->getQuantity();?></span>
+                        <button type="submit" name="quantity_minus" value="<?php echo $item->getQuantity() - 1; ?>" <?php echo ($item->getQuantity() == 1) ? 'disabled' : ''; ?>>-</button>
+                        <input type="hidden" name="cart_id" value="<?php echo $item->getCartID();?>">
+                    </div>
+                </form>
                 <!-- "Buy Now" button -->
-                <a class="button">Buy Now</a><br>
+                <br><a class="button" href="buy_now.php?id=<?php echo $item->getCartID();?>">Buy Now</a><br>
                 <a class="button-remove" href="delete_cart.php?id=<?php echo $item->getCartID(); ?>">Remove</a>
             </div>
         <?php endforeach ?>

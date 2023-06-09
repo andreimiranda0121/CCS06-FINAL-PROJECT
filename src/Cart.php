@@ -16,6 +16,11 @@ class Cart{
     protected $color;
     protected $image_path;
     protected $cart_quantity;
+    protected $product_quantity;
+
+    public function getProdQuantity(){
+        return $this->product_quantity;
+    }
 
     public function getProdID(){
         return $this->product_id;
@@ -69,6 +74,7 @@ class Cart{
                 p.color,
                 p.image_path,
                 c.cart_quantity,
+                p.product_quantity,
                 c.cart_id
                 FROM products AS p
                 LEFT JOIN cart as c
@@ -88,6 +94,24 @@ class Cart{
             }
 
             return $cart;
+        }catch (PDOException $e){
+            error_log($e->getMessage());
+        }
+    }
+
+    public static function updateQuantity($cart_id,$quantity){
+        global $conn;
+        try{
+            $sql = "
+                UPDATE cart
+                SET cart_quantity=:quantity
+                WHERE cart_id=:cart_id
+            ";
+            $statement = $conn->prepare($sql);
+            return $statement->execute([
+                'cart_id' => $cart_id,
+                'quantity' => $quantity
+            ]);
         }catch (PDOException $e){
             error_log($e->getMessage());
         }
@@ -156,6 +180,39 @@ class Cart{
             error_log($e->getMessage());
         }
     }
+
+    public static function getById($cart_id){
+        global $conn;
+        try{
+            $sql = "
+                SELECT p.product_name,
+                p.product_description,
+                p.price,
+                p.size,
+                p.color,
+                p.image_path,
+                c.cart_quantity,
+                p.product_quantity,
+                p.gender,
+                c.cart_id
+                FROM products AS p
+                LEFT JOIN cart as c
+                ON (c.product_id=p.product_id)
+                LEFT JOIN users as u
+                ON (u.user_id=c.user_id)
+                WHERE c.cart_id=:cart_id
+            ";
+            $statement = $conn->prepare($sql);
+            $statement->execute([
+                'cart_id' => $cart_id
+            ]);
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        } catch(PDOException $e){
+            error_log($e->getMessage());
+        }
+    }
+    
+
     
 }
 
