@@ -22,6 +22,47 @@ $result = Product::list();
 <head>
     <title>Product Management</title>
     <style>
+        body {
+           font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            right: 100px;
+            top: 80px;
+        }
+
+        h1 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 6px 12px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .product-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
         .product-container {
             display: flex;
             flex-wrap: wrap;
@@ -84,14 +125,13 @@ $result = Product::list();
         .button.add {
             background-color: #4CAF50;
             color: #fff;
-            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <h1>Product Management</h1>
-    <a href="logout.php">LOGOUT</a>
-
+        <a href="logout.php" class="logout-button">Logout</a>
+        <div class="container">
         <?php foreach($result as $res): ?>
         <div class="product-container">
         <div class="product-card">
@@ -131,11 +171,11 @@ $result = Product::list();
                 </div>
             </div>
         </div>
-        
+        </div>
         <?php endforeach?>
         <!-- Add more product cards as needed -->
-        
     </div>
     <a href="add_product.php" class="button add">Add Product</a>
+
 </body>
 </html>
