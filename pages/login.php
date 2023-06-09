@@ -11,7 +11,7 @@
 <body class="bg">
     <div class="dashboard">
         <div class="dashboard-title">
-            <a href="productpage.php">Mal De Wear</a>
+            <a href="home.php">Mal De Wear</a>
           </div>
         <nav class="nav-links">
             <a href="#"><i class="bx bx-cart"></i></a>
