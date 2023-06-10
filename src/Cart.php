@@ -194,6 +194,8 @@ class Cart{
                 c.cart_quantity,
                 p.product_quantity,
                 p.gender,
+                p.product_id,
+                c.user_id,
                 c.cart_id
                 FROM products AS p
                 LEFT JOIN cart as c

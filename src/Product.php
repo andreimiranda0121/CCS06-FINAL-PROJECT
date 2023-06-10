@@ -159,6 +159,52 @@ class Product
             error_log($e->getMessage());
         }
     }
+
+
+    public static function newArrival($gender)
+    {
+        global $conn;
+
+        try {
+            $sql = "SELECT * FROM products WHERE gender=:gender ORDER BY date ASC";
+
+            $statement = $conn->prepare($sql);
+            $statement->execute([
+                'gender' => $gender
+            ]);
+            $products = [];
+            while($row= $statement->fetchObject('App\Product')){
+                array_push($products,$row);
+            }
+            return $products;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+        }
+    }
+
+
+    public static function gender($gender){
+        global $conn;
+
+        try{
+            $sql="
+                SELECT * FROM products
+                WHERE gender=:gender
+            ";
+            $statement = $conn->prepare($sql);
+            $statement->execute([
+                'gender' => $gender
+            ]);
+            $products = [];
+            while($row= $statement->fetchObject('App\Product')){
+                array_push($products,$row);
+            }
+            return $products;
+        }catch(PDOException $e){
+            error_log($e->getMessage());
+        }
+    }
+
 }
 
 ?>
