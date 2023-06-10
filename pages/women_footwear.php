@@ -3,7 +3,7 @@ require "../config.php";
 use App\Product;
 session_start();
 $category = $_GET['category'];
-$product = Product::listCategoryMen($category);
+$product = Product::listCategoryWomen($category);
 ?>
 
 <!DOCTYPE html>

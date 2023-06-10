@@ -17,6 +17,11 @@ class Cart{
     protected $image_path;
     protected $cart_quantity;
     protected $product_quantity;
+    protected $gender;
+
+    public function getGender(){
+        return $this->gender;
+    }
 
     public function getProdQuantity(){
         return $this->product_quantity;
@@ -75,6 +80,7 @@ class Cart{
                 p.image_path,
                 c.cart_quantity,
                 p.product_quantity,
+                p.gender,
                 c.cart_id
                 FROM products AS p
                 LEFT JOIN cart as c

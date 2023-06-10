@@ -30,7 +30,8 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.9/css/boxicons.min.css">
     <link rel="stylesheet" href="../styles/style.css">
     <link rel="stylesheet" href="../styles/form.css">
-    
+    <link rel="stylesheet" href="../styles/product.css">
+
     <title>My Cart</title>
     <style>
         .product-container {
@@ -153,41 +154,60 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     </style>
 </head>
 <body>
-    <div>
+<div>
         <div class="dashboard">
             <div class="dashboard-title">
                 <a href="home.php">Mal De Wear</a>
             </div>
             <nav class="nav-links">
-            <div class="menu-btn">
-                <a href="#"><i class="bx bx-cart"></i></a>
-                <div class="dropdown-menu">
-                    <a class="links" href="cart.php">My Cart</a>
-                    <a class="links" href="orders.php">My Order</a>
+                <div class="menu-btn">
+                    <a href="#"><i class="bx bx-cart"></i></a>
+                    <div class="dropdown-menu">
+                        <a class="links" href="cart.php">My Cart</a>
+                        <a class="links" href="orders.php">My Order</a>
+                    </div>
                 </div>
-            </div>
-            <div class="menu-btn">
-                <a href="#"><i class="bx bx-user-circle"></i></a>
-                <div class="dropdown-menu">
-                    <a class="links" href="user_panel.php">My Profile</a>
-                    <a class="links" href="logout.php">Logout</a>
+                <div class="menu-btn">
+                    <a href="#"><i class="bx bx-user-circle"></i></a>
+                    <div class="dropdown-menu">
+                        <a class="links" href="user_panel.php">My Profile</a>
+                        <a class="links" href="logout.php">Logout</a>
+                    </div>
                 </div>
-            </div>
-            <a href="#"><i class="bx bx-heart"></i></a>
-        </nav>
-        <a href="#" class="menu-icon"><i class="bx bx-menu-alt-left"></i></a>
-    </div>
+                <a href="#"><i class="bx bx-heart"></i></a>
+            </nav>
+            <a href="#" class="menu-icon"><i class="bx bx-menu-alt-left"></i></a>
+        </div>
 
-    <div class="sidebar">
-        <div class="sidebar-content">
-            <a href="gender.php?gender=<?php echo "Male"?>"><h3>Male</h3></a>
-            <ul>
-                <a href="new_arrival.php?gender=<?php echo "Male"?>"><li>New Arrivals</li></a>
-            </ul>
-            <a href="gender.php?gender=<?php echo "Female"?>"><h3>Male</h3></a>
-            <ul>
-                <a href="new_arrival.php?gender=<?php echo "Female"?>"><li>New Arrivals</li></a>
-            </ul>
+        <div class="sidebar">
+            <div class="sidebar-content">
+                <h3><a href='men.php'>Men</a></h3>
+                <ul>
+                    <li><a href='men.php'>New Arrivals</a></li>
+                    <li><a href='men.php'>Best Sellers</a></li>
+                    <li><a href='men.php'>Shop by Collection</a></li>
+                    <li><a href='men_top.php?category=<?php echo urlencode("Tops"); ?>'>Tops</a></li>
+                    <li><a href='men_bottoms.php?category=<?php echo urlencode("Bottoms"); ?>'>Bottoms</a></li>
+                    <li><a href='men_footwear.php?category=<?php echo urlencode("Footwear"); ?>'>Footwear</a></li>
+                    <li><a href='men_accessories.php?category=<?php echo urlencode("Accessory"); ?>'>Accessories</a></li>
+                </ul>
+                <h3><a href='women.php'>Women</a></h3>
+                <ul>
+                    <li><a href='women.php'>New Arrivals</a></li>
+                    <li><a href='women.php'>Best Sellers</a></li>
+                    <li><a href='women.php'>Shop by Collection</a></li>
+                    <li><a href='women_top.php?category=<?php echo urlencode("Tops"); ?>'>Tops</a></li>
+                    <li><a href='women_bottoms.php?category=<?php echo urlencode("Bottoms"); ?>'>Bottoms</a></li>
+                    <li><a href='women_footwear.php?category=<?php echo urlencode("Footwear"); ?>'>Footwear</a></li>
+                    <li><a href='women_accessories.php?category=<?php echo urlencode("Accessory"); ?>'>Accessories</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-content2">
+                <h3><a href='productpage.php'>All Items</a></h3>
+            </div>
+            <div class="sidebar-content3">
+                <h3><a href='#'>Login</a></h3>
+            </div>
         </div>
     </div>
 
@@ -195,7 +215,7 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
         <?php foreach ($cart as $item) : ?>
             <div class="product-container">
                 <h2><?php echo $item->getProdName(); ?></h2>
-                <img class="prod-image" src="../images/<?php echo $item->getImage(); ?>">
+                <img class="prod-image" src="../images/<?php echo $item->getGender();?>/<?php echo $item->getImage(); ?>">
                 <p>Price: Php <?php echo $item->getPrice()*$item->getQuantity(); ?></p>
                 <form method="post">
                     <div>
@@ -215,7 +235,7 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
                     </div>
                 </div>
                 <div id="myModal" class="modal">
-                        <div class="modal-content">
+                    <div class="modal-content">
                         <h2>Do you want to remove the item? </h2>
                         <a class="button-remove" href="delete_cart.php?id=<?php echo $item->getCartID();?>">Remove</a>
                         <a class="button" id="close-modal">Cancel</a>

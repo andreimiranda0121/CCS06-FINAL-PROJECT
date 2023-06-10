@@ -140,7 +140,7 @@ $result = Product::list();
         <div class="product-container">
             <?php foreach($result as $res): ?>
             <div class="product-card">
-                <img src='../images/<?php echo $res->getImage();?>' alt="Product 1" class="product-image">
+                <img src='../images/<?php echo $res->getGender();   ?>/<?php echo $res->getImage();?>' alt="Product 1" class="product-image">
                 <div class="product-details">
                     <div class="product-name">
                         <label>Name: </label>
@@ -169,6 +169,12 @@ $result = Product::list();
                     <div>
                         <label>Gender: </label>
                         <?php echo $res->getGender();?>
+                    </div>
+                    <div>
+                        <select name="category" required>
+                            <option value="">Select Category</option>
+                            <option value="Tops">Tops</option>
+                        </select>
                     </div>
                     <div class="product-actions">
                         <a href="edit_product.php?id=<?php echo $res->getProdID();?>" class="button edit">Edit</a>

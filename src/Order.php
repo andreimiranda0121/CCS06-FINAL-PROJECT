@@ -63,6 +63,10 @@ class Order
         return $this->product_description;
     }
 
+    public function getGender(){
+        return $this->gender;
+    }
+
     public static function listOrders()
 {
     global $conn;
@@ -73,6 +77,7 @@ class Order
             p.product_name,
             p.product_description,
             p.price,
+            p.gender,
             p.size,
             p.color,
             p.image_path,
