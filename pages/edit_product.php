@@ -15,12 +15,71 @@ $product = Product::getById($prod_id);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="../styles/addProduct.css">
-    <link rel="stylesheet" href="../styles/style.css">
+    
     <title>Edit Product</title>
+    <style>
+    .b25 {
+            background: #252525;
+        }
+
+        .b1 {
+            background: #1b1b1b;
+        }
+
+        .bg {
+            position: fixed;
+            top: -4rem;
+            left: -12rem;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .bg2 {
+            position: fixed;
+            bottom: -2rem;
+            right: -3rem;
+            z-index: -1;
+            width: 9.375rem;
+            opacity: 0.7;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            left: 20px;
+            position: absolute;
+            top: 20px;
+        }
+        .image{
+            align-items: center;
+            margin-bottom: 20px;
+            margin-top: -80px;
+            min-width: 300px;
+            max-width: 300px;
+            background-image: none;
+            left: 35%;
+            top: 1px;
+            position: relative;
+
+}
+    </style>
 </head>
 <body>
-    <button class="button" onclick="history.back()">Back</button>
+<div class="dashboard">
+        <button class="button" onclick="history.back()"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
+        <div class="dashboard-title">
+            <a>Mal De Wear</a>
+        </div>
+    </div>
     <div class="container">
         <div>
             <img class ="image" src="../images/<?php echo $product->getImage();?>">
@@ -64,5 +123,7 @@ $product = Product::getById($prod_id);
             <input type="submit" value="Save" class="btn" >
         </form>
     </div>
+    <img src="https://cdn.pixabay.com/photo/2021/11/04/19/39/jellyfish-6769173_960_720.png" alt="" class="bg">
+    <img src="https://cdn.pixabay.com/photo/2012/04/13/13/57/scallop-32506_960_720.png" alt="" class="bg2">
 </body>
 </html>

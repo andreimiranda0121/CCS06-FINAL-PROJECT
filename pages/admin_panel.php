@@ -1,5 +1,4 @@
 <?php
-
 require '../config.php';
 use App\Product;
 
@@ -22,18 +21,19 @@ $result = Product::list();
     <title>Product Management</title>
 </head>
 <body>
-<div class="dashboard">
-            <div class="dashboard-title">
-                <a>Mal De Wear</a>
-            </div>
-            <nav class="nav-links">
-                <a href="logout.php" class="logout-button"><b>Logout</b></a>
-            </nav>
+    <div class="dashboard">
+        <div class="dashboard-title">
+            <a><b>Mal De Wear</b></a>
         </div>
-    
-        <div class="titlepage">
-    <h1>Product Management</h1>
+        <nav class="nav-links">
+            <a href="logout.php" class="logout-button"><b>Logout</b></a>
+        </nav>
     </div>
+
+    <div class="titlepage">
+        <h1>Product Management</h1>
+    </div>
+    
     <a href="logout.php" class="logout-button"><b>Logout</b></a>
 
     <div class="container">
@@ -78,12 +78,11 @@ $result = Product::list();
                         <a href="edit_product.php?id=<?php echo $res->getProdID();?>" class="button edit">Edit</a>
                         <button class="button delete" onclick="openForm()">Delete</button>
                         <div class="form-popup" id="myForm">
-                        <form action="delete_product.php?id=<?php echo $res->getProdID();?>" method="POST" class="form-container">
-    <h3>Are you sure you want to delete this product?</h3>
-    <input type="submit" class="btn" value="Confirm">
-    <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
-</form>
-
+                            <form action="delete_product.php?id=<?php echo $res->getProdID();?>" method="POST" class="form-container">
+                                <h3>Are you sure you want to delete this product?</h3>
+                                <input type="submit" class="btn" value="Confirm">
+                                <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -91,21 +90,18 @@ $result = Product::list();
             <?php endforeach?>
         </div>
     </div>
+    
     <img src="https://cdn.pixabay.com/photo/2021/11/04/19/39/jellyfish-6769173_960_720.png" alt="" class="bg">
     <img src="https://cdn.pixabay.com/photo/2012/04/13/13/57/scallop-32506_960_720.png" alt="" class="bg2">
+    
     <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
 
-function openForm() {
-  document.getElementById("myForm").style.display = "block";
-  
-}
-
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-  
-}
-
-</script>
-    </div>
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
 </body>
 </html>
