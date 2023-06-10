@@ -16,7 +16,7 @@ $product = Product::list();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.9/css/boxicons.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="../styles/product.css">
+    <link rel="stylesheet" href="../styles/men.css">
     <title>Mal De Wear</title>
 </head>
 <body>
@@ -35,7 +35,7 @@ $product = Product::list();
 
         <div class="sidebar">
             <div class="sidebar-content">
-                <h3><a href='men.php'>Men</a></h3>
+            <h3><a href='men.php'>Men</a></h3>
                 <ul>
                     <li><a href='men.php'>New Arrivals</a></li>
                     <li><a href='men.php'>Best Sellers</a></li>
@@ -65,92 +65,32 @@ $product = Product::list();
         </div>
     </div>
     <section class="products-container container">
-  <a href="#" class="shop-item">
-    <img src="../images/womenpage/tee1.png" alt="Clothing item" class="lazy shop-item__img" id="SemiFitImg">
-    <div class="quickview">
-      <span class="quickview__icon" id="Semi Fit">Overview</span>
-      <span class="quickview__info">Semi Fit T-shirt with Pocket and Branding Print<br><span class="quickview__info--price" id="SemiFitPrice">₱210.00</span></span>
-    </div>
-  </a>
-  <a href="#" class="shop-item">
-          <img src="../images/womenpage/tee2.png" alt="Clothing item" class="lazy shop-item__img" id="SemiFitShirtImg">
+        <a href="#" class="shop-item">
+            <img src="../images/menpage/shirt1.png" alt="Clothing item" class="lazy shop-item__img" id="OversizedShirtImg">
+            <div class="quickview">
+            <span class="quickview__icon" id="Oversized Shirt">Overview</span>
+            <span class="quickview__info">Oversized Fit Textured T-shirt<br><span class="quickview__info--price" id="OversizedShirtPrice">₱210.00</span></span>
+            </div>
+        </a>
+        <a href="#" class="shop-item">
+          <img src="../images/menpage/shirt2.png" alt="Clothing item" class="lazy shop-item__img" id="OversizedShirtGreyImg">
           <div class="quickview">
-            <span class="quickview__icon" id="Semi Fit Shirt">Overview</span>
-            <span class="quickview__info">Semi Fit T-shirt with Pocket and Branding Print<br><span class="quickview__info--price" id="SemiFitShirtPrice">₱218.00</span></span>
+            <span class="quickview__icon" id="Oversized Shirt Grey">Overview</span>
+            <span class="quickview__info">Oversized Fit Textured T-shirt<br><span class="quickview__info--price" id="OversizedShirtGreyPrice">₱218.00</span></span>
           </div>
         </a>
         <a href="#" class="shop-item">
-          <img src="../images/womenpage/tee3.png" alt="Clothing item" class="lazy shop-item__img" id="CroppedShirtImg">
+          <img src="../images/menpage/shirt3.png" alt="Clothing item" class="lazy shop-item__img" id="RelaxedShirtImg">
           <div class="quickview">
-            <span class="quickview__icon" id="Cropped Shirt">Overview</span>
-            <span class="quickview__info">Semi-fit Cropped T-shirt<br><span class="quickview__info--price" id="CroppedShirtPrice">₱298.00</span></span>
+            <span class="quickview__icon" id="Relaxed Shirt">Overview</span>
+            <span class="quickview__info">Relaxed Fit T-shirt<br><span class="quickview__info--price" id="RelaxedShirtPrice">₱298.00</span></span>
           </div>
         </a>
         <a href="#" class="shop-item">
-          <img src="../images/womenpage/tee4.png" alt="Semi Cropped" class="lazy shop-item__img" id="SemiCroppedImg">
+          <img src="../images/menpage/shirt4.png" alt="Clothing item" class="lazy shop-item__img" id="DenimPocketImg">
           <div class="quickview">
-            <span class="quickview__icon" id="Semi Cropped">Overview</span>
-            <span class="quickview__info">Semi-fit Cropped T-shirt<br><span class="quickview__info--price" id="SemiCroppedPrice">₱125.00</span></span>
-          </div>
-        </a>
-</section>
-<section class="products-container container">
-  <a href="#" class="shop-item">
-    <img src="../images/womenpage/short1.png" alt="Clothing item" class="lazy shop-item__img" id="RegularFitShortsImg">
-    <div class="quickview">
-      <span class="quickview__icon" id="Regular Fit Shorts">Overview</span>
-      <span class="quickview__info">Regular Fit Shorts with Patterned Denim Pockets<br><span class="quickview__info--price" id="RegularFitShortsPrice">₱210.00</span></span>
-    </div>
-  </a>
-  <a href="#" class="shop-item">
-          <img src="../images/womenpage/short2.png" alt="Clothing item" class="lazy shop-item__img" id="DenimShortsImg">
-          <div class="quickview">
-            <span class="quickview__icon" id="Denim Shorts">Overview</span>
-            <span class="quickview__info">Denim Shorts Fold Up Hem<br><span class="quickview__info--price" id="DenimShortsPrice">₱218.00</span></span>
-          </div>
-        </a>
-        <a href="#" class="shop-item">
-          <img src="../images/womenpage/short3.png" alt="Clothing item" class="lazy shop-item__img" id="BTSRegularFitShortsImg">
-          <div class="quickview">
-            <span class="quickview__icon" id="BTS Regular Fit Shorts">Overview</span>
-            <span class="quickview__info">Penshoppe BTS Dynamite Regular Fit Shorts with Raw Edge Hem<br><span class="quickview__info--price" id="BTSRegularFitShortsPrice">₱298.00</span></span>
-          </div>
-        </a>
-        <a href="#" class="shop-item">
-          <img src="../images/womenpage/short4.png" alt="Semi Cropped" class="lazy shop-item__img" id="KnitShortsImg">
-          <div class="quickview">
-            <span class="quickview__icon" id="Knit Shorts">Overview</span>
-            <span class="quickview__info">Essential Waffle Knit Shorts<br><span class="quickview__info--price" id="KnitShortsPrice">₱125.00</span></span>
-          </div>
-        </a>
-</section>
-<section class="products-container container">
-  <a href="#" class="shop-item">
-    <img src="../images/womenpage/footwear1.png" alt="Clothing item" class="lazy shop-item__img" id="MoldedSlidesImg">
-    <div class="quickview">
-      <span class="quickview__icon" id="Molded Slides">Overview</span>
-      <span class="quickview__info">Women's Molded Slides with Graphic Print<br><span class="quickview__info--price" id="MoldedSlidesPrice">₱210.00</span></span>
-    </div>
-  </a>
-  <a href="#" class="shop-item">
-          <img src="../images/womenpage/footwear2.png" alt="Clothing item" class="lazy shop-item__img" id="DebossedFlipFlopsImg">
-          <div class="quickview">
-            <span class="quickview__icon" id="Debossed Flip Flops">Overview</span>
-            <span class="quickview__info">Women's Debossed Flip Flops with Metal Pin<br><span class="quickview__info--price" id="DebossedFlipFlopsPrice">₱218.00</span></span>
-          </div>
-        </a>
-        <a href="#" class="shop-item">
-          <img src="../images/womenpage/footwear3.png" alt="Clothing item" class="lazy shop-item__img" id="FlipFlopsImg">
-          <div class="quickview">
-            <span class="quickview__icon" id="Flip Flops">Overview</span>
-            <span class="quickview__info">Women's Debossed Flip Flops with Metal Pin<br><span class="quickview__info--price" id="FlipFlopsPrice">₱298.00</span></span>
-          </div>
-        </a>
-        <a href="#" class="shop-item">
-          <img src="../images/womenpage/footwear4.png" alt="Semi Cropped" class="lazy shop-item__img" id="ClosureSandalsImg">
-          <div class="quickview">
-            <span class="quickview__icon" id="Closure Sandals">Overview</span>
-            <span class="quickview__info">Women's All Rubber Two Band Strap with Closure Sandals<br><span class="quickview__info--price" id="ClosureSandalsPrice">₱125.00</span></span>
+            <span class="quickview__icon" id="Denim Pocket">Overview</span>
+            <span class="quickview__info">Faded Denim Pocket T-shirt<br><span class="quickview__info--price" id="DenimPocketPrice">₱125.00</span></span>
           </div>
         </a>
 </section>
@@ -187,6 +127,7 @@ $product = Product::list();
     <span class="popup__close-icon-clothing" id="closeIcon">&times;</span>
   </div>
 </div>
+
 
 <script>
     const menuIcon = document.querySelector('.menu-icon');

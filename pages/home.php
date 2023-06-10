@@ -176,6 +176,7 @@
 
   
     menuIcon.addEventListener('click', () => {
+        event.preventDefault();
         sidebar.classList.toggle('sidebar-active');
         container.classList.toggle('container-active');
     });
