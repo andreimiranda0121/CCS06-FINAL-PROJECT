@@ -29,6 +29,12 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
 </head>
 <body>
 <div>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/dropdown.css">
+    <title>Document</title>
+</head>
+<body>
+    <div>
         <div class="dashboard">
             <div class="dashboard-title">
                 <a href="home.php">Mal De Wear</a>
@@ -85,6 +91,38 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
         </div>
     </div>
     <br><br><br><br><br>
+            <div class="menu-btn">
+                <a href="#"><i class="bx bx-cart"></i></a>
+                <div class="dropdown-menu">
+                    <a class="links" href="cart.php">My Cart</a>
+                    <a class="links" href="logout.php">My Order</a>
+                </div>
+            </div>
+            <div class="menu-btn">
+                <a href="#"><i class="bx bx-user-circle"></i></a>
+                <div class="dropdown-menu">
+                    <a class="links" href="user_panel.php">My Profile</a>
+                    <a class="links" href="logout.php">Logout</a>
+                </div>
+            </div>
+            <a href="#"><i class="bx bx-heart"></i></a>
+        </nav>
+        <a href="#" class="menu-icon"><i class="bx bx-menu-alt-left"></i></a>
+    </div>
+
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <a href="gender.php?gender=<?php echo "Male"?>"><h3>Male</h3></a>
+            <ul>
+                <a href="new_arrival.php?gender=<?php echo "Male"?>"><li>New Arrivals</li></a>
+            </ul>
+            <a href="gender.php?gender=<?php echo "Female"?>"><h3>Male</h3></a>
+            <ul>
+                <a href="new_arrival.php?gender=<?php echo "Female"?>"><li>New Arrivals</li></a>
+            </ul>
+        </div>
+    </div>
+    </div>
     <div class="container">
         <form action="save_user.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $user->getID(); ?>">
