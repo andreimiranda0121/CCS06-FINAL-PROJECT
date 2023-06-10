@@ -11,14 +11,15 @@ try {
     $color = $_POST['color'];
     $size = $_POST['size'];
     $gender = $_POST['gender'];
+    $category = $_POST['category'];
     // Specify the directory to save the uploaded images
-    $uploadDir = "../images/";
+    $uploadDir = "../images/".$gender.'/';
 
     // Generate a unique filename for the uploaded image
-    $imageFileName = uniqid() . '_' . $image["name"];
+    $imageFileName = $category . '_' . $image["name"];
     $targetFilePath = $uploadDir . $imageFileName;
 
-    $result = Product::add($product_name, $price, $imageFileName, $product_description, $product_quantity, $size, $color,$gender);
+    $result = Product::add($product_name, $price, $imageFileName, $product_description, $product_quantity, $size, $color,$gender,$category);
 
     if ($result) {
         move_uploaded_file($image["tmp_name"], $targetFilePath);

@@ -35,7 +35,11 @@ if(isset($_GET['id'])){
         <div class="col-lg-7 pb-5 pe-lg-5">
             <div class="row">
                 <div class="col-12 p-5">
+
+                    <img src="../images/<?php echo $item['gender'];?>/<?php echo $item['image_path']; ?>"
+
                     <img src="../images/<?php echo $item['image_path']; ?>"
+
                          alt="">
                 </div>
                 <div class="row m-0 bg-light">
@@ -172,5 +176,6 @@ if(isset($_GET['id'])){
         </div>
     </div>
 </body>
+
 
 </html>

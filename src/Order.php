@@ -63,6 +63,10 @@ class Order
         return $this->product_description;
     }
 
+    public function getGender(){
+        return $this->gender;
+    }
+
     public static function listOrders()
 {
     global $conn;
@@ -73,6 +77,7 @@ class Order
             p.product_name,
             p.product_description,
             p.price,
+            p.gender,
             p.size,
             p.color,
             p.image_path,
@@ -101,6 +106,28 @@ class Order
         return []; // Return an empty array in case of an exception
     }
 }
+
+    
+    
+    
+    
+
+    public static function add($product_id, $user_id, $shipping_address, $total_amount, $order_status, $order_date, $billing_address, $payment_information)
+    {
+        global $conn;
+        try {
+            // Insert the order
+            $sql = "
+                INSERT INTO orders (product_id, user_id, shipping_address, total_amount, order_status, order_date, billing_address, payment_information)
+                VALUES ('$product_id', '$user_id', '$shipping_address', '$total_amount', '$order_status', '$order_date', '$billing_address', '$payment_information')
+            ";
+            $conn->exec($sql);
+            return $conn->lastInsertId();
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+        }
+    }
+    
 
     
     

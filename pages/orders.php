@@ -152,6 +152,38 @@ $orders = Order::listOrders();
     </div>
 
     <div class="sidebar">
+
+            <div class="sidebar-content">
+                <h3><a href='men.php'>Men</a></h3>
+                <ul>
+                    <li><a href='men.php'>New Arrivals</a></li>
+                    <li><a href='men.php'>Best Sellers</a></li>
+                    <li><a href='men.php'>Shop by Collection</a></li>
+                    <li><a href='men_top.php?category=<?php echo urlencode("Tops"); ?>'>Tops</a></li>
+                    <li><a href='men_bottoms.php?category=<?php echo urlencode("Bottoms"); ?>'>Bottoms</a></li>
+                    <li><a href='men_footwear.php?category=<?php echo urlencode("Footwear"); ?>'>Footwear</a></li>
+                    <li><a href='men_accessories.php?category=<?php echo urlencode("Accesory"); ?>'>Accessories</a></li>
+                </ul>
+                <h3><a href='women.php'>Women</a></h3>
+                <ul>
+                    <li><a href='women.php'>New Arrivals</a></li>
+                    <li><a href='women.php'>Best Sellers</a></li>
+                    <li><a href='women.php'>Shop by Collection</a></li>
+                    <li><a href='women_top.php?category=<?php echo urlencode("Tops"); ?>'>Tops</a></li>
+                    <li><a href='women_bottoms.php?category=<?php echo urlencode("Bottoms"); ?>'>Bottoms</a></li>
+                    <li><a href='women_footwear.php?category=<?php echo urlencode("Footwear"); ?>'>Footwear</a></li>
+                    <li><a href='women_accessories.php?category=<?php echo urlencode("Accesory"); ?>'>Accessories</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-content2">
+                <h3><a href='productpage.php'>All Items</a></h3>
+            </div>
+            <div class="sidebar-content3">
+                <h3><a href='#'>Login</a></h3>
+            </div>
+        </div>
+    </div>
+
         <div class="sidebar-content">
             <a href="gender.php?gender=<?php echo "Male"?>"><h3>Men</h3></a>
             <ul>
@@ -168,7 +200,11 @@ $orders = Order::listOrders();
     <?php foreach ($orders as $order): ?>
         <div class="product-container">
             <h2><?php echo $order->getProdName();?></h2>
+
+            <img class="prod-image" src="../images/<?php echo $order->getGender()?>/<?php echo $order->getImage(); ?>">
+
             <img class="prod-image" src="../images/<?php echo $order->getImage(); ?>">
+
             <p><?php echo $order->getDescription(); ?></p>
             <p><?php echo $order->getOrderID(); ?></p>
             <p><?php echo $order->getBilling(); ?></p>
