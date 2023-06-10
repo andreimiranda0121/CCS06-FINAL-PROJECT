@@ -30,11 +30,7 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.9/css/boxicons.min.css">
     <link rel="stylesheet" href="../styles/style.css">
     <link rel="stylesheet" href="../styles/form.css">
-
-    <link rel="stylesheet" href="../styles/product.css">
-
-
-
+    
     <title>My Cart</title>
     <style>
         .product-container {
@@ -157,13 +153,12 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     </style>
 </head>
 <body>
-<div>
+    <div>
         <div class="dashboard">
             <div class="dashboard-title">
                 <a href="home.php">Mal De Wear</a>
             </div>
             <nav class="nav-links">
-
                 <div class="menu-btn">
                     <a href="#"><i class="bx bx-cart"></i></a>
                     <div class="dropdown-menu">
@@ -211,37 +206,7 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
             </div>
             <div class="sidebar-content3">
                 <h3><a href='#'>Login</a></h3>
-
-            <div class="menu-btn">
-                <a href="#"><i class="bx bx-cart"></i></a>
-                <div class="dropdown-menu">
-                    <a class="links" href="cart.php">My Cart</a>
-                    <a class="links" href="orders.php">My Order</a>
-                </div>
             </div>
-            <div class="menu-btn">
-                <a href="#"><i class="bx bx-user-circle"></i></a>
-                <div class="dropdown-menu">
-                    <a class="links" href="user_panel.php">My Profile</a>
-                    <a class="links" href="logout.php">Logout</a>
-                </div>
-
-            </div>
-            <a href="#"><i class="bx bx-heart"></i></a>
-        </nav>
-        <a href="#" class="menu-icon"><i class="bx bx-menu-alt-left"></i></a>
-    </div>
-
-    <div class="sidebar">
-        <div class="sidebar-content">
-            <a href="gender.php?gender=<?php echo "Male"?>"><h3>Male</h3></a>
-            <ul>
-                <a href="new_arrival.php?gender=<?php echo "Male"?>"><li>New Arrivals</li></a>
-            </ul>
-            <a href="gender.php?gender=<?php echo "Female"?>"><h3>Male</h3></a>
-            <ul>
-                <a href="new_arrival.php?gender=<?php echo "Female"?>"><li>New Arrivals</li></a>
-            </ul>
         </div>
     </div>
 
@@ -269,11 +234,7 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
                     </div>
                 </div>
                 <div id="myModal" class="modal">
-
                     <div class="modal-content">
-
-                        <div class="modal-content">
-
                         <h2>Do you want to remove the item? </h2>
                         <a class="button-remove" href="delete_cart.php?id=<?php echo $item->getCartID();?>">Remove</a>
                         <a class="button" id="close-modal">Cancel</a>

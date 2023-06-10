@@ -170,12 +170,7 @@ $result = Product::list();
                         <label>Gender: </label>
                         <?php echo $res->getGender();?>
                     </div>
-                    <div>
-                        <select name="category" required>
-                            <option value="">Select Category</option>
-                            <option value="Tops">Tops</option>
-                        </select>
-                    </div>
+                    
                     <div class="product-actions">
                         <a href="edit_product.php?id=<?php echo $res->getProdID();?>" class="button edit">Edit</a>
                         <a href="delete_product.php?id=<?php echo $res->getProdID();?>" class="button delete">Delete</a>

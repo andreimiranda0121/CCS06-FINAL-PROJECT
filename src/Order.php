@@ -107,33 +107,6 @@ class Order
     }
 }
 
-    
-    
-    
-    
-
-    public static function add($product_id, $user_id, $shipping_address, $total_amount, $order_status, $order_date, $billing_address, $payment_information)
-    {
-        global $conn;
-        try {
-            // Insert the order
-            $sql = "
-                INSERT INTO orders (product_id, user_id, shipping_address, total_amount, order_status, order_date, billing_address, payment_information)
-                VALUES ('$product_id', '$user_id', '$shipping_address', '$total_amount', '$order_status', '$order_date', '$billing_address', '$payment_information')
-            ";
-            $conn->exec($sql);
-            return $conn->lastInsertId();
-        } catch (PDOException $e) {
-            error_log($e->getMessage());
-        }
-    }
-    
-
-    
-    
-    
-    
-
     public static function add($product_id, $user_id, $shipping_address, $total_amount, $order_status, $order_date, $billing_address, $payment_information)
     {
         global $conn;

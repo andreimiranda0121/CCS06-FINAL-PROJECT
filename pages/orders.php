@@ -152,7 +152,6 @@ $orders = Order::listOrders();
     </div>
 
     <div class="sidebar">
-
             <div class="sidebar-content">
                 <h3><a href='men.php'>Men</a></h3>
                 <ul>
@@ -183,28 +182,11 @@ $orders = Order::listOrders();
             </div>
         </div>
     </div>
-
-        <div class="sidebar-content">
-            <a href="gender.php?gender=<?php echo "Male"?>"><h3>Men</h3></a>
-            <ul>
-                <a href="new_arrival.php?gender=<?php echo "Male"?>"><li>New Arrivals</li></a>
-            </ul>
-            <a href="gender.php?gender=<?php echo "Female"?>"><h3>Women</h3></a>
-            <ul>
-                <a href="new_arrival.php?gender=<?php echo "Female"?>"><li>New Arrivals</li></a>
-            </ul>
-        </div>
-    </div>
-</div>
 <div class="product-container-wrapper">
     <?php foreach ($orders as $order): ?>
         <div class="product-container">
             <h2><?php echo $order->getProdName();?></h2>
-
             <img class="prod-image" src="../images/<?php echo $order->getGender()?>/<?php echo $order->getImage(); ?>">
-
-            <img class="prod-image" src="../images/<?php echo $order->getImage(); ?>">
-
             <p><?php echo $order->getDescription(); ?></p>
             <p><?php echo $order->getOrderID(); ?></p>
             <p><?php echo $order->getBilling(); ?></p>

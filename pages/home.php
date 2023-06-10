@@ -14,13 +14,12 @@
     <link rel="stylesheet" href="../styles/home.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.9/css/boxicons.min.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
-    
+
 
     <title>Home</title>
   </head>
 
-
-  <div>
+ <div>
         <div class="dashboard">
             <div class="dashboard-title">
                 <a href="home.php">Mal De Wear</a>
@@ -44,37 +43,6 @@
             </nav>
             <a href="#" class="menu-icon"><i class="bx bx-menu-alt-left"></i></a>
         </div>
-
-  <body id="body-start">
-<!-- header -->   
-<div class="dashboard">
-    <div class="dashboard-title">
-        <a href="home.php">Mal De Wear</a>
-      </div>
-    <div class="nav"> 
-    <nav class="nav-links">
-        <a href="cart.php"><i class="bx bx-cart"></i></a>
-        <a href="user_panel.php"><i class="bx bx-user-circle"></i></a>
-        <a href="#"><i class="bx bx-heart"></i></a>
-    </nav>
-    </div>
-    <a href="#" class="menu-icon"><i class="bx bx-menu-alt-left"></i></a>
-</div>
-<!-- header -->
-
-    <div class="sidebar">
-        <div class="sidebar-content">
-            <h3>Men</h3>
-            <ul>
-                <li>New Arrivals</li>
-            </ul>
-            <h3>Women</h3>
-            <ul>
-                <li>New Arrivals</li>
-            </ul>
-        </div>
-    </div>
-
 
         <div class="sidebar">
             <div class="sidebar-content">

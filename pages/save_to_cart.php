@@ -12,9 +12,7 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     exit; // Stop executing the rest of the code
 } else {
     $product_id = $_POST['product_id'];
-    $product_id = $_GET['id'];
     $user_id = $_SESSION['user']['id'];
-
     $result = Cart::add($product_id, $user_id);
     if ($result) {
         header("Location: productpage.php");
