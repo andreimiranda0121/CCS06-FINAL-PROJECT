@@ -2,17 +2,17 @@
 
 require "../config.php";
 
-use App\Cart;
+use App\Product;
+
 session_start();
 
-$cart_id = $_GET['id'];
-$item = Cart::getById($cart_id);
+
 
 if(isset($_GET['id'])){
-    $cart_id = $_GET['id'];
-    $item = Cart::getById($cart_id);
+    $product_id = $_GET['id'];
+    $item = Product::getById($product_id);
 }
-
+$quantity = 3;
 ?>
 
 <!DOCTYPE html>
@@ -35,21 +35,21 @@ if(isset($_GET['id'])){
         <div class="col-lg-7 pb-5 pe-lg-5">
             <div class="row">
                 <div class="col-12 p-5">
-                    <img src="../images/<?php echo $item['image_path']; ?>"
+                    <img src="../images/<?php echo $item->getImage(); ?>"
                          alt="">
                 </div>
                 <div class="row m-0 bg-light">
                     <div class="col-md-4 col-6 ps-30 pe-0 my-4">
                         <p class="text-muted">Size</p>
-                        <p class="h5"><?php echo $item['size'] ?></p>
+                        <p class="h5"><?php echo $item->getSize();?></p>
                     </div>
                     <div class="col-md-4 col-6  ps-30 my-4">
                         <p class="text-muted">Color</p>
-                        <p class="h5 m-0"><?php echo $item['color'] ?></p>
+                        <p class="h5 m-0"><?php echo $item->getColor(); ?></p>
                     </div>
                     <div class="col-md-4 col-6 ps-30 my-4">
                         <p class="text-muted">Gender</p>
-                        <p class="h5 m-0"><?php echo $item['gender'] ?></p>
+                        <p class="h5 m-0"><?php echo $item->getGender(); ?></p>
                     </div>
                 </div>
             </div>
@@ -58,15 +58,15 @@ if(isset($_GET['id'])){
             <div class="row m-0">
                 <div class="col-12 px-4">
                     <div class="d-flex align-items-end mt-4 mb-2">
-                        <p class="h4 m-0"><span class="pe-1"><?php echo $item['product_name']; ?></span>
+                        <p class="h4 m-0"><span class="pe-1"><?php echo $item->getProdName(); ?></span>
                     </div>
                     <div class="d-flex justify-content-between mb-2">
                         <p class="text-muted">Qty</p>
-                        <p class="fs-14 fw-bold"><?php echo $item['cart_quantity']; ?></p>
+                        <p class="fs-14 fw-bold"><?php echo $quantity; ?></p>
                     </div>
                     <div class="d-flex justify-content-between mb-2">
                         <p class="text-muted">Price</p>
-                        <p class="fs-14 fw-bold"><span>Php <?php echo $item['price']; ?></span></p>
+                        <p class="fs-14 fw-bold"><span>Php <?php echo $item->getPrice(); ?></span></p>
                     </div>
                     <div class="d-flex justify-content-between mb-2">
                         <p class="text-muted">Shipping</p>
@@ -75,7 +75,7 @@ if(isset($_GET['id'])){
                     <div class="d-flex justify-content-between mb-3">
                         <p class="text-muted fw-bold">Total</p>
                         <div class="d-flex align-text-top ">
-                            <span></span><span class="h4">Php <?php echo $item['cart_quantity'] * $item['price']; ?></span>
+                            <span></span><span class="h4">Php <?php echo $quantity * $item->getPrice(); ?></span>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@ if(isset($_GET['id'])){
                             <p class="fw-bold">Payment detail</p>
                         </div>
                         <div class="col-12 px-4">
-                            <form method="post" action="save_orders.php?id=<?php echo $item['cart_id'] ?>">
+                            <form method="post" action="save_orders.php?id=<?php echo $product_id?>">
                                 <div class="d-flex  mb-4">
                                     <span class="">
                                         <p class="text-muted">Card number</p>
@@ -172,5 +172,4 @@ if(isset($_GET['id'])){
         </div>
     </div>
 </body>
-
 </html>

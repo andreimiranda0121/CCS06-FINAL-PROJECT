@@ -67,25 +67,41 @@ class User
     return null;
 }
 
-    public static function register($username,$password,$role)
-    {
-        global $conn;
+public static function register($username, $password, $role, $fullname, $address, $email, $contact, $shipping_address)
+{
+    global $conn;
 
-        try
-        {
-            $sql="
-                INSERT INTO users (username, password)
-                VALUES ('$username','$password','$role')
-            ";
+    try {
+        // Check if username or email already exists
+        $checkQuery = "SELECT COUNT(*) FROM users WHERE username = ? OR email = ?";
+        $stmtCheck = $conn->prepare($checkQuery);
+        $stmtCheck->execute([$username, $email]);
+        $count = $stmtCheck->fetchColumn();
 
-            $conn->exec($sql);
-
-            return $conn->lastInsertId();
-        } catch (PDOException $e){
-            error_log($e->getMessage());
+        if ($count > 0) {
+            echo "Registration failed. Username or email already exists.";
+            return false;
         }
-        return false;
+
+        // Insert the new user
+        $insertQuery = "
+            INSERT INTO users (username, password, roles, fullname, billing_address, email, contact, shipping_address)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ";
+
+        $stmtInsert = $conn->prepare($insertQuery);
+        $stmtInsert->execute([$username, $password, $role, $fullname, $address, $email, $contact, $shipping_address]);
+
+        return $conn->lastInsertId();
+    } catch (PDOException $e) {
+        echo "Registration failed. Error: " . $e->getMessage();
+        error_log($e->getMessage());
     }
+
+    return false;
+}
+
+
 
     public static function getById($user_id){
         global $conn;

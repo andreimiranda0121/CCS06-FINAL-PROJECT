@@ -4,8 +4,13 @@ require "../config.php";
 use App\Product;
 
 $gender = $_GET['gender'];
-$product = Product::newArrival($gender);
+
+$product = Product::gender($gender);
+
 ?>
+
+
+
 
 
 <!DOCTYPE html>
@@ -132,7 +137,7 @@ $product = Product::newArrival($gender);
 <div>
     <div class="dashboard">
         <div class="dashboard-title">
-            <a href="productpage.php">Mal De Wear</a>
+            <a href="home.php">Mal De Wear</a>
         </div>
         <nav class="nav-links">
             <div class="menu-btn">
@@ -143,9 +148,9 @@ $product = Product::newArrival($gender);
                 </div>
             </div>
             <div class="menu-btn">
-                <a href="cart.php"><i class="bx bx-user-circle"></i></a>
+                <a href="#"><i class="bx bx-user-circle"></i></a>
                 <div class="dropdown-menu">
-                    <a class="links" href="cart.php">My Profile</a>
+                    <a class="links" href="user_panel.php">My Profile</a>
                     <a class="links" href="logout.php">Logout</a>
                 </div>
             </div>
@@ -156,11 +161,11 @@ $product = Product::newArrival($gender);
 
     <div class="sidebar">
         <div class="sidebar-content">
-            <a href=""><h3>Male</h3></a>
+            <a href="gender.php?gender=<?php echo "Male"?>"><h3>Men</h3></a>
             <ul>
                 <a href="new_arrival.php?gender=<?php echo "Male"?>"><li>New Arrivals</li></a>
             </ul>
-            <h3>Female</h3>
+            <a href="gender.php?gender=<?php echo "Female"?>"><h3>Women</h3></a>
             <ul>
                 <a href="new_arrival.php?gender=<?php echo "Female"?>"><li>New Arrivals</li></a>
             </ul>
