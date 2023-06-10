@@ -36,28 +36,18 @@
 </div>
 <!-- header -->
 
-<div class="sidebar">
-  <div class="sidebar-content">
-      <h3>Men</h3>
-      <ul>
-          <li>New Arrivals</li>
-          <li>Best Sellers</li>
-          <li>Shop by Collection</li>
-      </ul>
-      <h3>Women</h3>
-      <ul>
-          <li>New Arrivals</li>
-          <li>Best Sellers</li>
-          <li>Shop by Collection</li>
-      </ul>
-      <h3>Kids</h3>
-      <ul>
-          <li>New Arrivals</li>
-          <li>Best Sellers</li>
-          <li>Shop by Collection</li>
-      </ul>
-  </div>
-</div>
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <h3>Men</h3>
+            <ul>
+                <li>New Arrivals</li>
+            </ul>
+            <h3>Women</h3>
+            <ul>
+                <li>New Arrivals</li>
+            </ul>
+        </div>
+    </div>
 
 
 <!-- content start-->

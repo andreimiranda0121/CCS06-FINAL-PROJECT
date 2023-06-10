@@ -29,6 +29,8 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.9/css/boxicons.min.css">
     <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/form.css">
+    
     <title>My Cart</title>
     <style>
         .product-container {
@@ -91,6 +93,63 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
             max-width: 1200px;
             padding: 20px;
         }
+
+        .menu-btn {
+            position: relative;
+            display: inline-block;
+            margin-left: 18px;
+        }
+
+        .menu-btn:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 25%;
+            min-width: 160px;
+            background-color: black;
+            z-index: 1;
+        }
+
+        .links {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 1px solid black;
+        }
+
+        .links:hover {
+            background-color: rgb(8, 107, 46);
+        }
+
+        /* Updated styling for dashboard */
+        .dashboard {
+            position: relative;
+            display: flex;
+            
+            
+        }
+
+        .dashboard-title {
+            margin-right: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-icon {
+            margin-left: 10px;
+            color: #fff;
+            font-size: 24px;
+        }
     </style>
 </head>
 <body>
@@ -100,22 +159,35 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
                 <a href="home.php">Mal De Wear</a>
             </div>
             <nav class="nav-links">
-                <a href="cart.php"><i class="bx bx-cart"></i></a>
-                <a href="user_panel.php"><i class="bx bx-user-circle"></i></a>
-                <a href="#"><i class="bx bx-heart"></i></a>
-            </nav>
-            <a href="#" class="menu-icon"><i class="bx bx-menu-alt-left"></i></a>
-        </div>
-
-        <div class="sidebar">
-            <div class="sidebar-content">
-                <h3>Men</h3>
-                <ul>
-                    <li>New Arrivals</li>
-                    <li>Best Sellers</li>
-                    <li>Shop by Collection</li>
-                </ul>
+            <div class="menu-btn">
+                <a href="#"><i class="bx bx-cart"></i></a>
+                <div class="dropdown-menu">
+                    <a class="links" href="cart.php">My Cart</a>
+                    <a class="links" href="orders.php">My Order</a>
+                </div>
             </div>
+            <div class="menu-btn">
+                <a href="#"><i class="bx bx-user-circle"></i></a>
+                <div class="dropdown-menu">
+                    <a class="links" href="user_panel.php">My Profile</a>
+                    <a class="links" href="logout.php">Logout</a>
+                </div>
+            </div>
+            <a href="#"><i class="bx bx-heart"></i></a>
+        </nav>
+        <a href="#" class="menu-icon"><i class="bx bx-menu-alt-left"></i></a>
+    </div>
+
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <a href="gender.php?gender=<?php echo "Male"?>"><h3>Male</h3></a>
+            <ul>
+                <a href="new_arrival.php?gender=<?php echo "Male"?>"><li>New Arrivals</li></a>
+            </ul>
+            <a href="gender.php?gender=<?php echo "Female"?>"><h3>Male</h3></a>
+            <ul>
+                <a href="new_arrival.php?gender=<?php echo "Female"?>"><li>New Arrivals</li></a>
+            </ul>
         </div>
     </div>
 
@@ -135,11 +207,39 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
                     </div>
                 </form>
                 <!-- "Buy Now" button -->
-                <br><a class="button" href="buy_now.php?id=<?php echo $item->getCartID();?>">Buy Now</a><br>
-                <a class="button-remove" href="delete_cart.php?id=<?php echo $item->getCartID(); ?>">Remove</a>
+                <br><a class="button" href="buy_now.php?id=<?php echo $item->getCartID();?>">Buy Now</a>
+                
+                <div id="blur-container">
+                    <div class="content">
+                        <button class="button-remove" id="open-modal">Remove</button>
+                    </div>
+                </div>
+                <div id="myModal" class="modal">
+                        <div class="modal-content">
+                        <h2>Do you want to remove the item? </h2>
+                        <a class="button-remove" href="delete_cart.php?id=<?php echo $item->getCartID();?>">Remove</a>
+                        <a class="button" id="close-modal">Cancel</a>
+                    </div>
+                </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-modal-video@2.6.0/dist/jquery-modal-video.min.js"></script>
+        <script>
+        $(document).ready(function() {
+        $("#open-modal").click(function() {
+            $("#blur-container").addClass("blur");
+            $("#myModal").fadeIn();
+        });
+
+        $("#close-modal").click(function() {
+            $("#myModal").fadeOut(function() {
+            $("#blur-container").removeClass("blur");
+            });
+        });
+        });
+        </script>
             </div>
         <?php endforeach ?>
     </div>
-
+    <script src="../scripts/sidebar.js"></script>
 </body>
 </html>

@@ -1,10 +1,11 @@
 <?php
 
 require "../config.php";
-use App\Product;
 
-$gender = $_GET['gender'];
-$product = Product::newArrival($gender);
+use App\Order;
+
+$orders = Order::listOrders();
+
 ?>
 
 
@@ -106,10 +107,8 @@ $product = Product::newArrival($gender);
         .dashboard {
             position: relative;
             display: flex;
-            
-            
         }
-
+        
         .dashboard-title {
             margin-right: auto;
         }
@@ -124,15 +123,13 @@ $product = Product::newArrival($gender);
             color: #fff;
             font-size: 24px;
         }
-
-        
     </style>
 </head>
 <body>
 <div>
     <div class="dashboard">
         <div class="dashboard-title">
-            <a href="productpage.php">Mal De Wear</a>
+            <a href="home.php">Mal De Wear</a>
         </div>
         <nav class="nav-links">
             <div class="menu-btn">
@@ -143,9 +140,9 @@ $product = Product::newArrival($gender);
                 </div>
             </div>
             <div class="menu-btn">
-                <a href="cart.php"><i class="bx bx-user-circle"></i></a>
+                <a href="#"><i class="bx bx-user-circle"></i></a>
                 <div class="dropdown-menu">
-                    <a class="links" href="cart.php">My Profile</a>
+                    <a class="links" href="user_panel.php">My Profile</a>
                     <a class="links" href="logout.php">Logout</a>
                 </div>
             </div>
@@ -156,11 +153,11 @@ $product = Product::newArrival($gender);
 
     <div class="sidebar">
         <div class="sidebar-content">
-            <a href=""><h3>Male</h3></a>
+            <a href="gender.php?gender=<?php echo "Male"?>"><h3>Men</h3></a>
             <ul>
                 <a href="new_arrival.php?gender=<?php echo "Male"?>"><li>New Arrivals</li></a>
             </ul>
-            <h3>Female</h3>
+            <a href="gender.php?gender=<?php echo "Female"?>"><h3>Women</h3></a>
             <ul>
                 <a href="new_arrival.php?gender=<?php echo "Female"?>"><li>New Arrivals</li></a>
             </ul>
@@ -168,20 +165,19 @@ $product = Product::newArrival($gender);
     </div>
 </div>
 <div class="product-container-wrapper">
-    <?php foreach($product as $prod): ?>
+    <?php foreach ($orders as $order): ?>
         <div class="product-container">
-            <h2><?php echo $prod->getProdName(); ?></h2>
-            <img class="prod-image" src="../images/<?php echo $prod->getImage(); ?>">
-            <p class="price">Price: Php <?php echo $prod->getPrice(); ?></p>
-            
-            <!-- "Add to Cart" button -->
-            <a href="save_to_cart.php?id=<?php echo $prod->getProdID(); ?>" class="button">Add to Cart</a><br>
-            
-            <!-- "Buy Now" button -->
-            <a class="button">Buy Now</a>
+            <h2><?php echo $order->getProdName();?></h2>
+            <img class="prod-image" src="../images/<?php echo $order->getImage(); ?>">
+            <p><?php echo $order->getDescription(); ?></p>
+            <p><?php echo $order->getOrderID(); ?></p>
+            <p><?php echo $order->getBilling(); ?></p>
+            <p><?php echo $order->getAddress(); ?></p>
+            <p><?php echo $order->getDate(); ?></p>
+            <p><?php echo $order->getStatus(); ?></p>
+            <p class="price">Total: Php <?php echo $order->getTotalAmount(); ?></p>
         </div>
     <?php endforeach; ?>
     <script src="../scripts/sidebar.js"></script>
 </body>
-
 </html>

@@ -51,51 +51,13 @@
             <h3>Men</h3>
             <ul>
                 <li>New Arrivals</li>
-                <li>Best Sellers</li>
-                <li>Shop by Collection</li>
             </ul>
             <h3>Women</h3>
             <ul>
                 <li>New Arrivals</li>
-                <li>Best Sellers</li>
-                <li>Shop by Collection</li>
-            </ul>
-            <h3>Kids</h3>
-            <ul>
-                <li>New Arrivals</li>
-                <li>Best Sellers</li>
-                <li>Shop by Collection</li>
             </ul>
         </div>
     </div>
-
-    <script>
-        const menuIcon = document.querySelector('.menu-icon');
-        const sidebar = document.querySelector('.sidebar');
-        const container = document.querySelector('.container');
-        const dashboard = document.querySelector('.dashboard');
-
-        menuIcon.addEventListener('click', () => {
-            sidebar.classList.toggle('sidebar-active');
-            container.classList.toggle('container-active');
-        });
-
-        container.addEventListener('click', (event) => {
-            if (event.target === container || event.target === dashboard) {
-                sidebar.classList.remove('sidebar-active');
-                container.classList.remove('container-active');
-            }
-        });
-        const navLinks = document.querySelectorAll('.nav-links a');
-
-        navLinks.forEach((link) => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
-            const targetSection = document.querySelector(link.getAttribute('href'));
-            targetSection.scrollIntoView({ behavior: 'smooth' });
-        });
-        });
-
-    </script>
+    <script src="../scripts/login_sidebar.js"></script>
 </body>
 </html>
