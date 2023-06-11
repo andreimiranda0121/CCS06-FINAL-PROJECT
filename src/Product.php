@@ -1,6 +1,8 @@
 <?php
 
 namespace app;
+
+use PDO;
 use PDOException;
 
 class Product
@@ -14,6 +16,11 @@ class Product
     protected $color;
     protected $product_quantity;
     protected $gender;
+    protected $category;
+
+    public function getCategory(){
+        return $this->category;
+    }
 
     public function getProdID(){
         return $this->product_id;
@@ -51,6 +58,104 @@ class Product
         return $this->gender;
     }
 
+    public static function listCategoryMen($category)
+{
+    global $conn;
+
+    try {
+        $sql = "
+            SELECT * FROM products
+            WHERE gender = 'Male'
+            AND category = :category
+        ";
+
+        $statement = $conn->prepare($sql);
+        $statement->execute([
+            'category' => $category
+        ]);
+
+        $products = [];
+        while ($row = $statement->fetchObject('App\Product')) {
+            $products[] = $row;
+        }
+
+        return $products;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        error_log($e->getMessage());
+    }
+}
+
+
+    public static function listItemMen(){
+        global $conn;
+        try{
+            $sql="
+                SELECT * FROM products
+                WHERE gender='Male'
+            ";
+
+            $statement = $conn->query($sql);
+            $prod = [];
+            while($row = $statement->fetchObject('App\Product')){
+                array_push($prod,$row);
+            }
+
+            return $prod;
+        }catch (PDOException $e){
+            echo $e->getMessage();
+            error_log($e->getMessage());
+        }
+    }
+
+    public static function listCategoryWomen($category)
+{
+    global $conn;
+
+    try {
+        $sql = "
+            SELECT * FROM products
+            WHERE gender = 'Female'
+            AND category = :category
+        ";
+
+        $statement = $conn->prepare($sql);
+        $statement->execute([
+            'category' => $category
+        ]);
+
+        $products = [];
+        while ($row = $statement->fetchObject('App\Product')) {
+            $products[] = $row;
+        }
+
+        return $products;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        error_log($e->getMessage());
+    }
+}
+
+    public static function listItemWomen(){
+        global $conn;
+        try{
+            $sql="
+                SELECT * FROM products
+                WHERE gender='Female'
+            ";
+            $statement = $conn->query($sql);
+            $prod = [];
+            while($row = $statement->fetchObject('App\Product')){
+                array_push($prod,$row);
+            }
+
+            return $prod;
+        }catch (PDOException $e){
+            echo $e->getMessage();
+            error_log($e->getMessage());
+        }
+    }
+
     public static function list(){
         global $conn;
 
@@ -70,22 +175,36 @@ class Product
         }
     }
 
-    public static function add($product_name,$price,$image_path,$product_description,$product_quantity,$size,$color,$gender){
+    public static function add($product_name, $price, $image_path, $product_description, $product_quantity, $size, $color, $gender, $category)
+    {
         global $conn;
 
-        try{
-            $sql="
-                INSERT INTO products (product_name,price,image_path,product_description,product_quantity,size,color,gender)
-                VALUES('$product_name','$price','$image_path','$product_description','$product_quantity','$size','$color','$gender')
-            ";
-            $conn->exec($sql);
+        try {
+            $date = date('Y-m-d H:i:s');
+            $sql = "INSERT INTO products (product_name, price, image_path, product_description, product_quantity, size, color, gender, date, category)
+                    VALUES (:product_name, :price, :image_path, :product_description, :product_quantity, :size, :color, :gender, :date, :category)";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':product_name', $product_name);
+            $stmt->bindParam(':price', $price);
+            $stmt->bindParam(':image_path', $image_path);
+            $stmt->bindParam(':product_description', $product_description);
+            $stmt->bindParam(':product_quantity', $product_quantity);
+            $stmt->bindParam(':size', $size);
+            $stmt->bindParam(':color', $color);
+            $stmt->bindParam(':gender', $gender);
+            $stmt->bindParam(':date', $date);
+            $stmt->bindParam(':category', $category);
+
+            $stmt->execute();
 
             return $conn->lastInsertId();
-
-        }catch(PDOException $e){
+        } catch (PDOException $e) {
+            echo $e->getMessage();
             error_log($e->getMessage());
         }
     }
+
 
     public static function edit($product_id,$product_name,$price,$product_description,$product_quantity,$size,$color,$gender){
         global $conn;
@@ -158,6 +277,52 @@ class Product
             error_log($e->getMessage());
         }
     }
+
+
+    public static function newArrival($gender)
+    {
+        global $conn;
+
+        try {
+            $sql = "SELECT * FROM products WHERE gender=:gender ORDER BY date ASC";
+
+            $statement = $conn->prepare($sql);
+            $statement->execute([
+                'gender' => $gender
+            ]);
+            $products = [];
+            while($row= $statement->fetchObject('App\Product')){
+                array_push($products,$row);
+            }
+            return $products;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+        }
+    }
+
+
+    public static function gender($gender){
+        global $conn;
+
+        try{
+            $sql="
+                SELECT * FROM products
+                WHERE gender=:gender
+            ";
+            $statement = $conn->prepare($sql);
+            $statement->execute([
+                'gender' => $gender
+            ]);
+            $products = [];
+            while($row= $statement->fetchObject('App\Product')){
+                array_push($products,$row);
+            }
+            return $products;
+        }catch(PDOException $e){
+            error_log($e->getMessage());
+        }
+    }
+
 }
 
 ?>

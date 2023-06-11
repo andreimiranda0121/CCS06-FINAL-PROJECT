@@ -44,7 +44,8 @@ $result = Product::list();
         <div class="product-container">
             <?php foreach($result as $res): ?>
             <div class="product-card">
-                <img src="../images/<?php echo $res->getImage();?>" alt="Product 1" class="product-image">
+
+                <img src='../images/<?php echo $res->getGender();   ?>/<?php echo $res->getImage();?>' alt="Product 1" class="product-image">
                 <div class="product-details">
                     <div class="product-name">
                         <label><b>Name:</b> </label>
@@ -74,6 +75,7 @@ $result = Product::list();
                         <label><b>Gender: </b></label>
                         <?php echo $res->getGender();?>
                     </div>
+                    
                     <div class="product-actions">
                         <a href="edit_product.php?id=<?php echo $res->getProdID();?>" class="button edit">Edit</a>
                         <button class="button delete" onclick="openForm()">Delete</button>

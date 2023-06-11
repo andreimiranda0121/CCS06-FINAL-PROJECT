@@ -115,7 +115,17 @@
             </div>
 
             <div>
-                <label>Image:</label>
+                <select name="category" required>
+                    <option value="">Select Category</option>
+                    <option value="Tops">Tops</option>
+                    <option value="Bottoms">Bottoms</option>
+                    <option value="Footwear">Footwear</option>
+                    <option value="Accessory">Accessory</option>
+                </select><br><br>
+            </div>
+
+            <div>
+                <label>Image: </label>
                 <input type="file" accept="image/png, image/jpeg, image/jpg" name="image" required><br>
             </div>
 

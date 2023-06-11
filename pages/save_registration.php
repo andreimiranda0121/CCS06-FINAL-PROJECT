@@ -1,29 +1,37 @@
 <?php
 
-require '../config.php';
+require "../config.php";
 
-use App\User;
+use App\Cart;
 
-try{
-    $username= $_POST['username'];
-    $password= $_POST['password'];
-    $role = 'user';
+session_start();
 
-    $result = User::register($username,$password,$role);
+if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
+    // Redirect the user to the login page or display an error message
+    header("Location: login.php"); // Redirect to the login page
+    exit; // Stop executing the rest of the code
+} else {
+    $product_id = $_GET['id'];
+    $user_id = $_SESSION['user']['id'];
 
-    if($result){
-        $_SESSION['is_logged_in'] = true;
-        $_SESSION['user'] = [
-            'id' =>  $result,
-            'username' => $username,
-            'password' => $password
-        ];
-        header('Location: index.php');
+    $result = Cart::add($product_id, $user_id);
+    if ($result) {
+        echo "
+            <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Product added to cart',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(() => {
+                    window.location.href = 'productpage.php';
+                });
+            </script>";
+        exit();
+    } else {
+        echo "<h1>There was an error in saving the product.</h1>";
     }
-} catch (PDOException $e){
-    error_log($e->getMessage());
-    echo "<h1 style='color: red'>" . $e->getMessage() . "</h1>";
 }
-
 
 ?>
