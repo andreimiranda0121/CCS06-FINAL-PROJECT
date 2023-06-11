@@ -75,89 +75,88 @@ $product = Product::list();
     </div>
     <br><br>
     <section class="products-container container">
-    <?php
-    $counter = 0;
-    foreach ($product as $prod):    
-        ?>
-        <a href="#" class="shop-item">
-            <img src="../images/<?php echo $prod->getGender(); ?>/<?php echo $prod->getImage(); ?>" alt="Clothing item" class="lazy shop-item__img clothingImg">
-            <div class="quickview">
-                <button class="quickview__icon overview-btn" data-product-id="<?php echo $prod->getProdID(); ?>"><?php echo $prod->getProdName(); ?></button>
-                <span class="quickview__info"><?php echo $prod->getDescription(); ?><br><span class="quickview__info--price clothingPrice">₱<?php echo $prod->getPrice(); ?></span></span>
-            </div>
-        </a>
-
         <?php
-        $counter++;
-        if ($counter % 4 === 0) {
-            echo '</section><section class="products-container container">';
-        }
-    endforeach;
-    ?>
-</section>
+        $counter = 0;
+        foreach ($product as $prod):    
+            ?>
+            <a href="#" class="shop-item" data-product-id="<?php echo $prod->getProdID();?>">
+                <img src="../images/<?php echo $prod->getGender(); ?>/<?php echo $prod->getImage(); ?>" alt="Clothing item" class="lazy shop-item__img clothingImg">
+                <div class="quickview">
+                    <button class="quickview__icon overview-btn" id="<?php echo $prod->getProdName(); ?>">Overview</button>
+                    <span class="quickview__info"><?php echo $prod->getDescription(); ?><br><span class="quickview__info--price clothingPrice">₱<?php echo $prod->getPrice(); ?></span></span>
+                </div>
+            </a>
+    
+            <?php
+            $counter++;
+            if ($counter % 4 === 0) {
+                echo '</section><section class="products-container container">';
+            }
+        endforeach;
+        ?>
+    </section>
 
-<form method="post" action="save_to_cart.php">
-    <input type="hidden" name="product_id" class="popup-productID">
-    <div class="overlay">
-        <div class="popup-item">
-            <div class="clothing-item-flex">
-                <div class="clothing-item-flex__img-wrapper">
-                    <img src="" alt="Clothing item" class="clothing-item-flex__img zoom-normal popup-clothingImg">
-                </div>
-                <div class="product-info">
-                    <h2 class="heading-secondary popup-clothingName"></h2>
-                    <span class="product-info__price popup-clothingPrice"></span>
-                    <p class="product-info__text popup-clothingDescription"></p>
-                    <div class="detail-group">
-                        <p class="detail-group__span">Size:</p>
-                        <select class="detail-group__size">
-                            <option value="">Select Size</option>
-                            <option value="0">XS</option>
-                            <option value="2">S</option>
-                            <option value="4">M</option>
-                            <option value="6">L</option>
-                            <option value="8">XL</option>
-                        </select>
+    <form method="post" action="save_to_cart.php">
+        <input type="hidden" name="product_id" class="popup-productID">
+        <div class="overlay">
+            <div class="popup-item">
+                <div class="clothing-item-flex">
+                    <div class="clothing-item-flex__img-wrapper">
+                        <img src="" alt="Clothing item" class="clothing-item-flex__img zoom-normal popup-clothingImg">
                     </div>
-                    <div class="detail-group">
-                        <p class="detail-group__span">Quantity:</p>
-                        <input class="detail-group__quantity" max="25" min="1" value="1" type="number">
+                    <div class="product-info">
+                        <h2 class="heading-secondary popup-clothingName"></h2>
+                        <span class="product-info__price popup-clothingPrice"></span>
+                        <p class="product-info__text popup-clothingDescription"></p>
+                        <div class="detail-group">
+                            <p class="detail-group__span">Size:</p>
+                            <select class="detail-group__size">
+                                <option value="">Select Size</option>
+                                <option value="0">XS</option>
+                                <option value="2">S</option>
+                                <option value="4">M</option>
+                                <option value="6">L</option>
+                                <option value="8">XL</option>
+                            </select>
+                        </div>
+                        <div class="detail-group">
+                            <p class="detail-group__span">Quantity:</p>
+                            <input class="detail-group__quantity" max="25" min="1" value="1" type="number">
+                        </div>
+                        <button type="submit" class="btn btn--form btn--form--shop">Add to cart</button>
+                        <a href="" class="btn-view">Go Back</a>
                     </div>
-                    <button type="submit" class="btn btn--form btn--form--shop">Add to cart</button>
-                    <a href="" class="btn-view">Go Back</a>
                 </div>
+                <span class="popup__close-icon-clothing">&times;</span>
             </div>
-            <span class="popup__close-icon-clothing">&times;</span>
         </div>
-    </div>
-</form>    
+    </form>    
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $('.quickview .overview-btn').click(function() {
-        var productId = $(this).data('product-id');
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('.quickview .overview-btn').click(function() {
+            var productId = $(this).closest('.shop-item').attr('data-product-id');
 
-        // Update the value of the hidden input field
-        $('.popup-productID').val(productId);
+            // Update the value of the hidden input field
+            $('.popup-productID').val(productId);
 
-        $('.overlay').css({'opacity': '1', 'visibility': 'visible'});
+            $('.overlay').css({'opacity': '1', 'visibility': 'visible'});
 
-        var imgsrc = $(this).closest('.shop-item').find('.clothingImg').prop('src');
-        var price = $(this).closest('.shop-item').find('.clothingPrice').text();
-        var productName = $(this).text();
-        var description = $(this).closest('.shop-item').find('.quickview__info').clone().children().remove().end().text();
+            var imgsrc = $(this).closest('.shop-item').find('.clothingImg').prop('src');
+            var price = $(this).closest('.shop-item').find('.clothingPrice').text();
+            var productName = $(this).closest('.shop-item').find('.quickview__icon').attr('id');
+            var description = $(this).closest('.shop-item').find('.quickview__info').clone().children().remove().end().text();
 
-        $('.popup-clothingDescription').text(description);
-        $('.popup-clothingImg').prop('src', imgsrc);
-        $('.popup-clothingName').text(productName);
-        $('.popup-clothingPrice').text(price);
-    });
+            $('.popup-clothingDescription').text(description);
+            $('.popup-clothingImg').prop('src', imgsrc);
+            $('.popup-clothingName').text(productName);
+            $('.popup-clothingPrice').text(price);
+        });
 
-    $('.popup__close-icon-clothing').click(function() {
-        $('.popup, .overlay').css({'opacity': '0', 'visibility': 'hidden'});
-    });
-</script>
-
+        $('.popup__close-icon-clothing').click(function() {
+            $('.popup, .overlay').css({'opacity': '0', 'visibility': 'hidden'});
+        });
+    </script>
 
 <script>
     const menuIcon = document.querySelector('.menu-icon');

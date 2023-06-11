@@ -211,8 +211,8 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     </div>
 
      <div class="product-container-wrapper">
-        <?php foreach ($cart as $item) : ?>
-            <div class="product-container">
+    <?php foreach ($cart as $item) : ?>
+        <div class="product-container">
                 <h2><?php echo $item->getProdName(); ?></h2>
                 <img class="prod-image" src="../images/<?php echo $item->getGender();?>/<?php echo $item->getImage(); ?>">
                 <p>Price: Php <?php echo $item->getPrice()*$item->getQuantity(); ?></p>
@@ -229,36 +229,39 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
                 <br><a class="button" href="buy_now.php?id=<?php echo $item->getCartID();?>">Buy Now</a>
                 
                 <div id="blur-container">
-                    <div class="content">
-                        <button class="button-remove" id="open-modal">Remove</button>
-                    </div>
+                <div class="content">
+                    <button class="button-remove" data-cart-id="<?php echo $item->getCartID(); ?>">Remove</button>
                 </div>
-                <div id="myModal" class="modal">
-                    <div class="modal-content">
-                        <h2>Do you want to remove the item? </h2>
-                        <a class="button-remove" href="delete_cart.php?id=<?php echo $item->getCartID();?>">Remove</a>
-                        <a class="button" id="close-modal">Cancel</a>
-                    </div>
-                </div>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery-modal-video@2.6.0/dist/jquery-modal-video.min.js"></script>
-        <script>
-        $(document).ready(function() {
-        $("#open-modal").click(function() {
-            $("#blur-container").addClass("blur");
-            $("#myModal").fadeIn();
-        });
-
-        $("#close-modal").click(function() {
-            $("#myModal").fadeOut(function() {
-            $("#blur-container").removeClass("blur");
-            });
-        });
-        });
-        </script>
             </div>
-        <?php endforeach ?>
-    </div>
+
+            <div id="myModal-<?php echo $item->getCartID(); ?>" class="modal">
+                <div class="modal-content">
+                    <h2>Do you want to remove the item?</h2>
+                    <a class="button-remove" href="delete_cart.php?id=<?php echo $item->getCartID(); ?>">Remove</a>
+                    <a class="button" data-modal-id="<?php echo $item->getCartID(); ?>" id="close-modal">Cancel</a>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $(".button-remove").click(function() {
+                    var cartID = $(this).data("cart-id");
+                    $("#blur-container").addClass("blur");
+                    $("#myModal-" + cartID).fadeIn();
+                });
+
+                $("a[data-modal-id]").click(function() {
+                    var cartID = $(this).data("modal-id");
+                    $("#myModal-" + cartID).fadeOut(function() {
+                        $("#blur-container").removeClass("blur");
+                    });
+                });
+            });
+        </script>
+    <?php endforeach ?>
+</div>
     <script src="../scripts/sidebar.js"></script>
 </body>
 </html>
