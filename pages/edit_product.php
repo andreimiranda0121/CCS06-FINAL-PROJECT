@@ -1,3 +1,4 @@
+Edit Product
 <?php
 require '../config.php';
 use App\Product;
@@ -66,11 +67,61 @@ $product = Product::getById($prod_id);
             min-width: 300px;
             max-width: 300px;
             background-image: none;
-            left: 35%;
-            top: 1px;
+            left: 78%;
+            top: 350px;
             position: relative;
 
-}
+        }
+        .container-edit {
+            max-width: 1200px;
+            padding: 2rem;
+            margin: -7% auto;
+            position: relative;
+        }
+
+        .container-edit.centered{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        
+        }
+
+        .container-edit form{
+            max-width: 50rem;
+            margin:0 auto;
+            padding:2rem;
+            border-radius: .5rem;
+            background: var(--bg-color);
+        }
+
+        .container-edit form h3{
+            text-transform: uppercase;
+            color:var(--black);
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 2.5rem;
+        }
+
+        .container-edit form .box{
+            width: 100%;
+            border-radius: .5rem;
+            padding:1.2rem 1.5rem;
+            font-size: 1.7rem;
+            margin:1rem 0;
+            background: var(--white);
+            text-transform: none;
+            top: 20px;
+        }
+        h1 {
+            margin-top: 20px;
+            position: absolute;
+            color: #000;
+            left: 500px;
+            top: 100px;
+            font-family: Arial, sans-serif;
+
+        }
     </style>
 </head>
 <body>
@@ -80,7 +131,8 @@ $product = Product::getById($prod_id);
             <a>Mal De Wear</a>
         </div>
     </div>
-    <div class="container">
+    <h1>Edit Product</h1>
+    <div class="container-edit">
         <div>
             <img class ="image" src="../images/<?php echo $product->getImage();?>">
         </div>

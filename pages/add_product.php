@@ -64,6 +64,15 @@
             text-align: center;
             font-family: Helvetica, Arial, sans-serif;
         }
+        h1 {
+            margin-top: 20px;
+            position: absolute;
+            color: #000;
+            left: 500px;
+            top: 100px;
+            font-family: Arial, sans-serif;
+
+        }
     </style>
     <title>Add Product</title>
 </head>
@@ -75,6 +84,7 @@
             <a>Mal De Wear</a>
         </div>
     </div>
+    <h1>Add Product</h1>
     
     <div class="container">
         <form action="save_product.php" method="POST" enctype="multipart/form-data">
@@ -115,17 +125,7 @@
             </div>
 
             <div>
-                <select name="category" required>
-                    <option value="">Select Category</option>
-                    <option value="Tops">Tops</option>
-                    <option value="Bottoms">Bottoms</option>
-                    <option value="Footwear">Footwear</option>
-                    <option value="Accessory">Accessory</option>
-                </select><br><br>
-            </div>
-
-            <div>
-                <label>Image: </label>
+                <label>Image:</label>
                 <input type="file" accept="image/png, image/jpeg, image/jpg" name="image" required><br>
             </div>
 
