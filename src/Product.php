@@ -175,14 +175,14 @@ class Product
         }
     }
 
-    public static function add($product_name, $price, $image_path, $product_description, $product_quantity, $size, $color, $gender, $category)
+    public static function add($product_name, $price, $image_path, $product_description, $product_quantity, $gender, $category)
     {
         global $conn;
 
         try {
             $date = date('Y-m-d H:i:s');
-            $sql = "INSERT INTO products (product_name, price, image_path, product_description, product_quantity, size, color, gender, date, category)
-                    VALUES (:product_name, :price, :image_path, :product_description, :product_quantity, :size, :color, :gender, :date, :category)";
+            $sql = "INSERT INTO products (product_name, price, image_path, product_description, product_quantity,gender, date, category)
+                    VALUES (:product_name, :price, :image_path, :product_description, :product_quantity, :gender, :date, :category)";
 
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':product_name', $product_name);
@@ -190,8 +190,6 @@ class Product
             $stmt->bindParam(':image_path', $image_path);
             $stmt->bindParam(':product_description', $product_description);
             $stmt->bindParam(':product_quantity', $product_quantity);
-            $stmt->bindParam(':size', $size);
-            $stmt->bindParam(':color', $color);
             $stmt->bindParam(':gender', $gender);
             $stmt->bindParam(':date', $date);
             $stmt->bindParam(':category', $category);
@@ -206,7 +204,7 @@ class Product
     }
 
 
-    public static function edit($product_id,$product_name,$price,$product_description,$product_quantity,$size,$color,$gender){
+    public static function edit($product_id,$product_name,$price,$product_description,$product_quantity,$gender,$category){
         global $conn;
 
         try {
@@ -217,9 +215,8 @@ class Product
                     price= :price,
                     product_description =:product_description,
                     product_quantity =:product_quantity,
-                    size =:size,
-                    color =:color,
-                    gender =:gender
+                    gender =:gender,
+                    category =:category
                 WHERE product_id = :product_id
             ";
 			$statement = $conn->prepare($sql);
@@ -228,9 +225,8 @@ class Product
 				'price' => $price,
                 'product_description' => $product_description,
                 'product_quantity' => $product_quantity,
-                'size' => $size,
-                'color' => $color,
                 'gender' => $gender,
+                'category' => $category,
 				'product_id' => $product_id
 			]);
 		} catch (PDOException $e) {
@@ -278,50 +274,6 @@ class Product
         }
     }
 
-
-    public static function newArrival($gender)
-    {
-        global $conn;
-
-        try {
-            $sql = "SELECT * FROM products WHERE gender=:gender ORDER BY date ASC";
-
-            $statement = $conn->prepare($sql);
-            $statement->execute([
-                'gender' => $gender
-            ]);
-            $products = [];
-            while($row= $statement->fetchObject('App\Product')){
-                array_push($products,$row);
-            }
-            return $products;
-        } catch (PDOException $e) {
-            error_log($e->getMessage());
-        }
-    }
-
-
-    public static function gender($gender){
-        global $conn;
-
-        try{
-            $sql="
-                SELECT * FROM products
-                WHERE gender=:gender
-            ";
-            $statement = $conn->prepare($sql);
-            $statement->execute([
-                'gender' => $gender
-            ]);
-            $products = [];
-            while($row= $statement->fetchObject('App\Product')){
-                array_push($products,$row);
-            }
-            return $products;
-        }catch(PDOException $e){
-            error_log($e->getMessage());
-        }
-    }
 
 }
 

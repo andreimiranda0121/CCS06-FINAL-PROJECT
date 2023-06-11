@@ -22,9 +22,8 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.9/css/boxicons.min.css">
     <link rel="stylesheet" href="../styles/addProduct.css">
-    <link rel="stylesheet" href="../styles/dropdown.css">
-    <link rel="stylesheet" href="../styles/product.css">
-
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/menu.css">
     <title>Document</title>
 </head>
 <body>
@@ -78,9 +77,6 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
             </div>
             <div class="sidebar-content2">
                 <h3><a href='productpage.php'>All Items</a></h3>
-            </div>
-            <div class="sidebar-content3">
-                <h3><a href='#'>Login</a></h3>
             </div>
         </div>
     </div>

@@ -24,6 +24,11 @@ class Order
     protected $shipping_address;
     protected $order_date;
     protected $billing_address;
+    protected $order_quantity;
+
+    public function getOrderQuantity(){
+        return $this->order_quantity;
+    }
 
     public function getBilling(){
         return $this->billing_address;
@@ -66,6 +71,7 @@ class Order
     public function getGender(){
         return $this->gender;
     }
+    
 
     public static function listOrders()
 {
@@ -78,8 +84,10 @@ class Order
             p.product_description,
             p.price,
             p.gender,
-            p.size,
-            p.color,
+            o.order_quantity,
+            o.order_id,
+            o.size,
+            o.billing_address,
             p.image_path,
             o.total_amount,
             o.shipping_address,
@@ -107,14 +115,14 @@ class Order
     }
 }
 
-    public static function add($product_id, $user_id, $shipping_address, $total_amount, $order_status, $order_date, $billing_address, $payment_information)
+    public static function add($product_id, $user_id, $shipping_address, $total_amount, $order_status, $order_date, $billing_address, $payment_information,$order_quantity,$size)
     {
         global $conn;
         try {
             // Insert the order
             $sql = "
-                INSERT INTO orders (product_id, user_id, shipping_address, total_amount, order_status, order_date, billing_address, payment_information)
-                VALUES ('$product_id', '$user_id', '$shipping_address', '$total_amount', '$order_status', '$order_date', '$billing_address', '$payment_information')
+                INSERT INTO orders (product_id, user_id, shipping_address, total_amount, order_status, order_date, billing_address, payment_information,order_quantity,size)
+                VALUES ('$product_id', '$user_id', '$shipping_address', '$total_amount', '$order_status', '$order_date', '$billing_address', '$payment_information','$order_quantity','$size')
             ";
             $conn->exec($sql);
             return $conn->lastInsertId();
@@ -127,26 +135,28 @@ class Order
 {
     global $conn;
     try {
-        $sql = "UPDATE products
-                SET product_quantity = :product_quantity
-                WHERE product_id = :product_id";
-        $statement = $conn->prepare($sql);
-        $statement->execute([
+        // Update the product quantity
+        $updateSql = "UPDATE products
+                      SET product_quantity = :product_quantity
+                      WHERE product_id = :product_id";
+        $updateStatement = $conn->prepare($updateSql);
+        $updateStatement->execute([
             'product_id' => $product_id,
             'product_quantity' => $product_quantity
         ]);
 
+        // Retrieve the item from the cart
         $selectSql = "SELECT * FROM cart WHERE cart_id = :cart_id";
-        $statement = $conn->prepare($selectSql);
-        $statement->execute([
+        $selectStatement = $conn->prepare($selectSql);
+        $selectStatement->execute([
             'cart_id' => $cart_id
         ]);
-        $item = $statement->fetch(PDO::FETCH_ASSOC);
+        $item = $selectStatement->fetch(PDO::FETCH_ASSOC);
 
         // Delete the item from the cart
         $deleteSql = "DELETE FROM cart WHERE cart_id = :cart_id";
-        $statement = $conn->prepare($deleteSql);
-        $statement->execute([
+        $deleteStatement = $conn->prepare($deleteSql);
+        $deleteStatement->execute([
             'cart_id' => $cart_id
         ]);
 
@@ -155,15 +165,8 @@ class Order
         error_log($e->getMessage());
     }
 }
-    public static function addFromProductPage(){
-        global $conn;
-        try{
-            $sql="";
-        }catch (PDOException $e){
-            echo "Registration failed. Error: " . $e->getMessage();
-            error_log($e->getMessage());
-        }
-    }
+
+
 }
 
 ?>

@@ -212,60 +212,67 @@ i {
 /* Your existing CSS code */
 
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 300px;
-    height: 100vh;
-    background-color: #000;
-    color: #fff;
-    transform: translateX(-100%);
-    transition: transform .5s ease-out;
-    z-index: 999;
-    opacity: 0.9; /* Added opacity to darken the background */
-    
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100vh;
+  background-color: #000;
+  color: #fff;
+  transform: translateX(-100%);
+  transition: transform .5s ease-out;
+  z-index: 999;
+  opacity: 0.9; /* Added opacity to darken the background */
+  
 }
-
 .sidebar-active {
-    transform: translateX(0);
+  transform: translateX(0);
 }
-
+/* SIDEBAR CONTENT 2 */
 .sidebar-content {
-    padding: 20px;
+  padding: 30px;
 }
-
-.sidebar h3 {
-    color: #fff;
+.sidebar-content h3 a{
+  font-size: 20px;
+  color: #fff;
+  text-decoration: none;
 }
-
 .sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 10px;
+  margin: 0;
 }
 
-.sidebar ul li {
-    margin-bottom: 10px;
+.sidebar ul a{
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  color: white;
+  letter-spacing: 1px;
+  line-height: 3;
 }
-
-.container {
-    position: relative; /* Added relative positioning */
+/* SIDEBAR CONTENT 2 */
+.sidebar-content2 {
+  display: flex;
+  padding: 30px;
 }
-
-.container::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Added background color with transparency */
-    display: none;
-    z-index: 998;
+.sidebar-content2 h3 a{
+  font-size: 20px;
+  color: #fff;
+  text-decoration: none;
 }
-
-.sidebar-active ~ .container::before {
-    display: block;
+/* SIDEBAR CONTENT 3 */
+.sidebar-content3 {
+  position: absolute;
+  display: flex;
+  padding: 1px;
+  top: 730px;
+  left: 29px;
+}
+.sidebar-content3 h3 a{
+  font-size: 20px;
+  color: #fff;
+  text-decoration: none;
 }
 
 .container-active::before {

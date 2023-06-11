@@ -75,6 +75,7 @@
             <a>Mal De Wear</a>
         </div>
     </div>
+    <h1>Add Product</h1>
     
     <div class="container">
         <form action="save_product.php" method="POST" enctype="multipart/form-data">
@@ -97,35 +98,26 @@
                 <label>Quantity:</label>
                 <input type="text" name="quantity" class="box" required><br>
             </div>
-
-            <div>
-                <label>Size:</label>
-                <input type="text" name="size" class="box" required><br>
-            </div>
-
+            
             <div>
                 <label>Gender:</label>
                 <input type="radio" name="gender" value="Male">Male
                 <input type="radio" name="gender" value="Female">Female
             </div>
-
+            <br>
             <div>
-                <label>Color:</label>
-                <input type="text" name="color" class="box" required><br>
-            </div>
-
-            <div>
+                <label>Category: </label>
                 <select name="category" required>
                     <option value="">Select Category</option>
                     <option value="Tops">Tops</option>
                     <option value="Bottoms">Bottoms</option>
                     <option value="Footwear">Footwear</option>
-                    <option value="Accessory">Accessory</option>
-                </select><br><br>
+                    <option value="Accesory">Accesory</option>
+                </select>
             </div>
-
+            <br>
             <div>
-                <label>Image: </label>
+                <label>Image:</label>
                 <input type="file" accept="image/png, image/jpeg, image/jpg" name="image" required><br>
             </div>
 

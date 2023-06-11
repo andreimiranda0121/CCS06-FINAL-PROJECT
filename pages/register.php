@@ -180,7 +180,7 @@
           <br>
           <div class="field">
              <span class="fa fa-credit-card"></span>
-             <input type="text" name="shipping" required placeholder="Shipping Address">
+             <input type="text" name="billing" required placeholder="Shipping Address">
           </div>
           <br>
           <div class="field">

@@ -3,7 +3,7 @@
 require "../config.php";
 
 use App\Cart;
-
+use App\Product;
 session_start();
 
 if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
@@ -13,7 +13,20 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
 } else {
     $product_id = $_POST['product_id'];
     $user_id = $_SESSION['user']['id'];
-    $result = Cart::add($product_id, $user_id);
+    $quantity = $_POST['quantity'];
+    $size = $_POST['size'];
+
+    // Check if the total cart quantity exceeds the product quantity
+    $totalQuantity = $quantity + Cart::getCartQuantity($product_id, $user_id);
+    $product_quantity = Product::getById($product_id);
+    if ($totalQuantity > $product_quantity->getQuantity()) {
+        echo "<script>alert('Cannot add the product to the cart. Quantity exceeds available stock.');</script>";
+        echo "<script>window.history.back();</script>";
+        exit;
+    }
+    
+
+    $result = Cart::add($product_id, $user_id, $quantity, $size);
     if ($result) {
         header("Location: productpage.php");
     } else {

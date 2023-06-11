@@ -8,10 +8,9 @@ try{
     $price = $_POST['price'];
     $product_description = $_POST['description'];
     $product_quantity = $_POST['quantity'];
-    $size = $_POST['size'];
-    $color = $_POST['color'];
+    $category = $_POST['category'];
     $gender = $_POST['gender'];
-    $result = Product::edit($product_id,$prod_name,$price,$product_description,$product_quantity,$size,$color,$gender);
+    $result = Product::edit($product_id,$prod_name,$price,$product_description,$product_quantity,$gender,$category);
 
     if($result){
         header('Location: admin_panel.php');

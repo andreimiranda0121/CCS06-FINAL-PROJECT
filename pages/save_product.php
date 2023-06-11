@@ -8,8 +8,6 @@ try {
     $image = $_FILES['image'];
     $product_description = $_POST['description'];
     $product_quantity = $_POST['quantity'];
-    $color = $_POST['color'];
-    $size = $_POST['size'];
     $gender = $_POST['gender'];
     $category = $_POST['category'];
     // Specify the directory to save the uploaded images
@@ -19,7 +17,7 @@ try {
     $imageFileName = $category . '_' . $image["name"];
     $targetFilePath = $uploadDir . $imageFileName;
 
-    $result = Product::add($product_name, $price, $imageFileName, $product_description, $product_quantity, $size, $color,$gender,$category);
+    $result = Product::add($product_name, $price, $imageFileName, $product_description, $product_quantity,$gender,$category);
 
     if ($result) {
         move_uploaded_file($image["tmp_name"], $targetFilePath);

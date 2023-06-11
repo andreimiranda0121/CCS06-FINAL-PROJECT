@@ -71,16 +71,16 @@ class Cart{
         global $conn;
         $user_id = $_SESSION['user']['id'];
         try{
-            $sql="
+            $sql = "
                 SELECT p.product_name,
                 p.product_description,
                 p.price,
-                p.size,
-                p.color,
                 p.image_path,
                 c.cart_quantity,
+                p.product_id,
                 p.product_quantity,
                 p.gender,
+                c.size,
                 c.cart_id
                 FROM products AS p
                 LEFT JOIN cart as c
@@ -88,7 +88,7 @@ class Cart{
                 LEFT JOIN users as u
                 ON (u.user_id=c.user_id)
                 WHERE c.product_id IS NOT NULL
-                AND c.user_id =:user_id
+                AND c.user_id = :user_id
             ";
             $statement = $conn->prepare($sql);
             $statement->execute([
@@ -98,12 +98,17 @@ class Cart{
             while($row = $statement->fetchObject('App\Cart')){
                 array_push($cart,$row);
             }
-
-            return $cart;
-        }catch (PDOException $e){
+    
+            if (!empty($cart)) {
+                return $cart;
+            } else {
+                return []; // Return an empty array if no cart items found
+            }
+        } catch (PDOException $e){
             error_log($e->getMessage());
         }
     }
+    
 
     public static function updateQuantity($cart_id,$quantity){
         global $conn;
@@ -123,7 +128,7 @@ class Cart{
         }
     }
 
-    public static function add($product_id, $user_id){
+    public static function add($product_id, $user_id, $cart_quantity,$size) {
         global $conn;
         try {
             // Check if the item already exists in the cart for the user
@@ -135,33 +140,36 @@ class Cart{
             $statement = $conn->prepare($sql);
             $statement->execute([
                 'user_id' => $user_id,
-                'product_id' => $product_id
+                'product_id' => $product_id,
             ]);
             $result = $statement->fetch(PDO::FETCH_ASSOC);
-
+    
             if ($result) {
                 // If the item exists, update the quantity
                 $sql = "
                     UPDATE cart
-                    SET cart_quantity = cart_quantity + 1
+                    SET cart_quantity = :cart_quantity + cart_quantity
                     WHERE user_id = :user_id AND product_id = :product_id
                 ";
                 $statement = $conn->prepare($sql);
                 $statement->execute([
                     'user_id' => $user_id,
-                    'product_id' => $product_id
+                    'product_id' => $product_id,
+                    'cart_quantity' => $cart_quantity
                 ]);
                 return $result['cart_id'];
             } else {
                 // If the item doesn't exist, insert a new record in the cart table
                 $sql = "
-                    INSERT INTO cart (user_id, product_id, cart_quantity)
-                    VALUES (:user_id, :product_id, 1)
+                    INSERT INTO cart (user_id, product_id, cart_quantity, size)
+                    VALUES (:user_id, :product_id, :cart_quantity, :size)
                 ";
                 $statement = $conn->prepare($sql);
                 $statement->execute([
                     'user_id' => $user_id,
-                    'product_id' => $product_id
+                    'product_id' => $product_id,
+                    'cart_quantity' => $cart_quantity,
+                    'size' => $size
                 ]);
                 return $conn->lastInsertId();
             }
@@ -169,7 +177,27 @@ class Cart{
             error_log($e->getMessage());
         }
     }
-
+    
+    public static function getCartQuantity($product_id, $user_id) {
+        global $conn;
+        try {
+            $sql = "
+                SELECT cart_quantity
+                FROM cart
+                WHERE user_id = :user_id AND product_id = :product_id
+            ";
+            $statement = $conn->prepare($sql);
+            $statement->execute([
+                'user_id' => $user_id,
+                'product_id' => $product_id,
+            ]);
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            return $result ? $result['cart_quantity'] : 0;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+        }
+    }
+    
 
     public static function delByID($cart_id){
         global $conn;
@@ -194,14 +222,13 @@ class Cart{
                 SELECT p.product_name,
                 p.product_description,
                 p.price,
-                p.size,
-                p.color,
                 p.image_path,
                 c.cart_quantity,
                 p.product_quantity,
                 p.gender,
                 p.product_id,
                 c.user_id,
+                c.size,
                 c.cart_id
                 FROM products AS p
                 LEFT JOIN cart as c

@@ -29,128 +29,9 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.9/css/boxicons.min.css">
     <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/menu.css">
     <link rel="stylesheet" href="../styles/form.css">
-    
     <title>My Cart</title>
-    <style>
-        .product-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 100px;
-            margin-right: 30px;
-            width: 300px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #f5f5f5;
-        }
-
-        /* Styles for the buttons */
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            margin-right: 10px;
-            font-size: 16px;
-            text-align: center;
-            text-decoration: none;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .button-remove{
-            display: inline-block;
-            padding: 10px 20px;
-            margin-right: 10px;
-            font-size: 16px;
-            text-align: center;
-            text-decoration: none;
-            color: #fff;
-            background-color: red;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-
-        .button-remove:hover{
-            background-color: darkred;
-        }
-
-        .prod-image{
-            min-width: 100px;
-            max-width: 100px;
-        }
-
-        .product-container-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin: 0 auto;
-            max-width: 1200px;
-            padding: 20px;
-        }
-
-        .menu-btn {
-            position: relative;
-            display: inline-block;
-            margin-left: 18px;
-        }
-
-        .menu-btn:hover .dropdown-menu {
-            display: block;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 25%;
-            min-width: 160px;
-            background-color: black;
-            z-index: 1;
-        }
-
-        .links {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            font-size: 18px;
-            font-weight: bold;
-            border-bottom: 1px solid black;
-        }
-
-        .links:hover {
-            background-color: rgb(8, 107, 46);
-        }
-
-        /* Updated styling for dashboard */
-        .dashboard {
-            position: relative;
-            display: flex;
-            
-            
-        }
-
-        .dashboard-title {
-            margin-right: auto;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-        }
-
-        .menu-icon {
-            margin-left: 10px;
-            color: #fff;
-            font-size: 24px;
-        }
-    </style>
 </head>
 <body>
     <div>
@@ -204,9 +85,6 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
             <div class="sidebar-content2">
                 <h3><a href='productpage.php'>All Items</a></h3>
             </div>
-            <div class="sidebar-content3">
-                <h3><a href='#'>Login</a></h3>
-            </div>
         </div>
     </div>
 
@@ -225,7 +103,7 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
                         <input type="hidden" name="cart_id" value="<?php echo $item->getCartID();?>">
                     </div>
                 </form>
-                <!-- "Buy Now" button -->
+                <!-- Buy Now button -->
                 <br><a class="button" href="buy_now.php?id=<?php echo $item->getCartID();?>">Buy Now</a>
                 
                 <div id="blur-container">

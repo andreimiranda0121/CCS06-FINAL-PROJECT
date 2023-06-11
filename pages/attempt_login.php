@@ -11,7 +11,11 @@ try{
     $result = User::attemptLogin($username,$password);
 
     if(!$result){
-        throw new Exception('Access denied, invalid credentials.');
+        echo "
+            <script>
+                alert('Login failed. Username or password is incorrect.');
+                window.history.back();
+            </script>";
     }
     
     if (!is_null($result) ) {

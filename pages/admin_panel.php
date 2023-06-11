@@ -19,6 +19,18 @@ $result = Product::list();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/adminpanel.css">
     <title>Product Management</title>
+    <style>
+    
+.search-container {
+    position: absolute;
+    top: 20px; /* Adjust the top position as per your preference */
+    right: 20px; /* Adjust the right position as per your preference */
+    text-align: right;
+    margin-bottom: 20px;
+    z-index: 999; /* Ensure the search bar appears above other elements */
+}
+
+    </style>
 </head>
 <body>
     <div class="dashboard">
@@ -40,6 +52,10 @@ $result = Product::list();
         <div class="button-container">
             <a href="add_product.php" class="button add">Add Product</a>
         </div>
+        <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search products...">
+        <button type="button" id="searchButton" class="button search">Search</button>
+    </div>
 
         <div class="product-container">
             <?php foreach($result as $res): ?>
@@ -63,17 +79,15 @@ $result = Product::list();
                         <label><b>Quantity: </b></label>
                         <?php echo $res->getQuantity();?>
                     </div>
-                    <div>
-                        <label><b>Size: </b></label>
-                        <?php echo $res->getSize();?>
-                    </div>
-                    <div>
-                        <label><b>Color:</b></label>
-                        <?php echo $res->getColor();?>
-                    </div>
-                    <div>
+
+                    <div class="product-gender">
                         <label><b>Gender: </b></label>
                         <?php echo $res->getGender();?>
+                    </div>
+
+                    <div>
+                        <label><b>Category: </b></label>
+                        <?php echo $res->getCategory();?>
                     </div>
                     
                     <div class="product-actions">
@@ -105,5 +119,47 @@ $result = Product::list();
             document.getElementById("myForm").style.display = "none";
         }
     </script>
+    <script>
+    document.getElementById("searchButton").addEventListener("click", function() {
+    var input = document.getElementById("searchInput").value.toLowerCase();
+    var products = document.getElementsByClassName("product-card");
+
+    for (var i = 0; i < products.length; i++) {
+        var productName = products[i].querySelector(".product-name").textContent.toLowerCase();
+        var productDescription = products[i].querySelector(".product-details").textContent.toLowerCase();
+        var productGender = products[i].querySelector(".product-gender").textContent.toLowerCase();
+
+        var isMatch =
+            productName.includes(input) ||
+            productDescription.includes(input) ||
+            (productGender === input && input !== "male" && input !== "female");
+
+        products[i].style.display = isMatch ? "block" : "none";
+    }
+});
+
+document.getElementById("searchInput").addEventListener("input", function() {
+    var input = this.value.trim().toLowerCase();
+    var products = document.getElementsByClassName("product-card");
+
+    for (var i = 0; i < products.length; i++) {
+        var productName = products[i].querySelector(".product-name").textContent.toLowerCase();
+        var productDescription = products[i].querySelector(".product-details").textContent.toLowerCase();
+        var productGender = products[i].querySelector(".product-gender").textContent.toLowerCase();
+
+        var isMatch =
+            productName.includes(input) ||
+            productDescription.includes(input) ||
+            (productGender === input && input !== "male" && input !== "female");
+
+        products[i].style.display = isMatch ? "block" : "none";
+    }
+});
+
+
+
+
+</script>
+
 </body>
 </html>

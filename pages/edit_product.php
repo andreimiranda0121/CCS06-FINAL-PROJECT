@@ -82,7 +82,7 @@ $product = Product::getById($prod_id);
     </div>
     <div class="container">
         <div>
-            <img class ="image" src="../images/<?php echo $product->getImage();?>">
+            <img class ="image" src="../images/<?php echo $product->getGender();?>/<?php echo $product->getImage();?>">
         </div>
         <form action="save_edit.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $product->getProdID(); ?>">
@@ -106,19 +106,20 @@ $product = Product::getById($prod_id);
             </div>
 
             <div>
-                <label>Size:</label>
-                <input type="text" value="<?php echo $product->getSize();?>" name="size" class="box" required><br>
-            </div>
-
-            <div>
                 <label>Gender: </label>
                 <input type="radio" name="gender" value="Male" <?php echo ($product->getGender() === 'Male') ? 'checked' : ''; ?> >Male
                 <input type="radio" name="gender" value="Female" <?php echo ($product->getGender() === 'Female') ? 'checked' : ''; ?> >Female
             </div>
-
+            <br>
             <div>
-                <label>Color:</label>
-                <input type="text" value="<?php echo $product->getColor();?>" name="color" class="box" required><br>
+                <label>Category: </label>
+                <select name="category" required>
+                    <option value="">Select Category</option>
+                    <option value="Tops" <?php echo ($product->getCategory() === 'Tops') ? 'selected' : ''; ?>>Tops</option>
+                    <option value="Bottoms" <?php echo ($product->getCategory() === 'Bottoms') ? 'selected' : ''; ?>>Bottoms</option>
+                    <option value="Footwear" <?php echo ($product->getCategory() === 'Footwear') ? 'selected' : ''; ?>>Footwear</option>
+                    <option value="Accesory" <?php echo ($product->getCategory() === 'Accesory') ? 'selected' : ''; ?>>Accesory</option>
+                </select>
             </div>
             <input type="submit" value="Save" class="btn" >
         </form>
